@@ -1,0 +1,53 @@
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ROADMAD: witchNode (Front-end):
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+   ☐ monster manager creat/manage monsters
+   ☐ item creator create/manage items
+   ☐ redo authentication provider/consumer as hocs 
+   ☐ New navigation split => groups: "Apps" (coinflipper, todo, chat), "Management" (user creation, complex), "Menu" (settings, documentation[docs + gallery])
+   ☐ Data permanence => Users (username + password)
+   ☐ Create centralized settings class that interacts with sessionstorage
+   ☐ toastr => get options from local/sessionstorage
+   ☐ layout context provider => turn into context hoc
+   
+   ☐ user creation and selection
+   ☐ confirmation window own implementation
+   ☐ css generic components with variant classes
+   ✔ layout user context => save user settings to local/sessionstorage on sign in @done(18-08-05 15:51)
+   ✔ global status => (lang/theme) (context) @done(18-07-30 09:10)
+   ✔ Create code documentation => e.g constructor docs, themings docs, etc (+ styled samples) @done(18-07-30 09:10)
+   ✔ CSS Sass modules @done(18-07-30 09:09)
+   ✔ Hot Module Reload Module @done(18-07-30 09:09)
+   ✔ todo (mission tab) routes / function => api redirection @done(18-07-26 15:18)
+   ✔ modal stateable extendable @done(18-07-26 15:18)
+   ✔ multiple data message support @done(18-07-26 15:18)
+   ✔ !!! Break witchnode to 2 different projects (witchNode & witchReact) @done(18-07-26 15:17)
+   ✔ coin flip machine with result counters @done(18-07-08 00:38)
+   ✔ textarea elements @done(18-07-08 00:38)
+   ✔ centralise validation class @done(18-07-08 00:38)
+   ✔ env mail address, mail link in footer @done(18-05-29 04:27)
+   ✔ Dashboard (log git commits and winston logging) @done(18-05-09 02:57)
+   ✔ change viewengine to ejs @done(18-05-09 02:57)
+   ✔ Components to separate files @done(2018-03-03 11:21)
+   ✔ Time component (ticking clock) @done(2018-03-03 11:21)
+   ✔ Create reusable Input (text) @done(18-04-23 02:29)
+   ✔ multiselect @done(18-04-23 02:29)
+   ✔ checkbox @done(18-04-23 02:29)
+   ✔ fix potionscript announcer (test class implementation)  @done(2018-03-20 02:09)
+   ✔ what to do with typescript? (seems nice actually, implement for pure js atleast?) @done(2018-03-12 17:33)
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Art (Styling):
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+   
+   ☐ Generic art: 
+   ☐ Announcer (mascot) 
+   ☐ Favicon
+   ☐ Page art for 404 page
+   ☐ official logo
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+

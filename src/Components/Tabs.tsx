@@ -24,6 +24,9 @@ export default class Tabs extends React.Component<IProps> {
                   isActive: this.state.activeTab === index
                });
             }
+            else {
+               return null;
+            }
          }
       );
    }

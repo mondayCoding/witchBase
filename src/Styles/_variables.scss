@@ -1,0 +1,48 @@
+
+//***********************************************************************
+//Default colors
+//***********************************************************************
+
+//accents
+$main: 	 #75AB35 !default;
+$alt: 	 #c4f56b !default;
+$tertiary:rgb(215, 250, 210) !default;
+$link:	 #23d5ab;
+
+//basics grays
+$grayBlack: 	#222 !default; 						//extreme dark gray
+$grayDark: 		rgba(50, 50, 50, 1) !default; 	//body bg
+$grayDarkAlt: 	rgba(58, 58, 58, 1) !default; 	//navi bg
+$grayMedium:	rgba(110, 110, 110, 1) !default;	//disable color
+$grayLight:		rgba(220, 220, 220, 1) !default;	//general text color
+
+//basic
+$white: 	#fff !default;
+$black: 	rgb(0,0,0) !default;
+
+
+//***********************************************************************
+//Variables 
+//***********************************************************************
+
+
+//fonts
+$bodyfont: 'Rubik', sans-serif !default;
+$bodyfont: 'fira-sans', sans-serif !default;
+$headingfont: 'Rubik', sans-serif !default;
+$headingfont: 'fira-sans', sans-serif !default;
+$headingfont: 'Roboto', sans-serif !default;
+
+//globals
+$globalFontSize:           .95rem;
+$globalRadius: 				.35rem !default;
+$globalShadow: 				0 0 .4rem transparentize($black, .5) !default;
+$globalShadowInset: 			0 0 .4rem transparentize($black, .5) inset !default;
+$globalContentPadding: 		1rem !default;
+$globalTransitionColors: 	color .8s, background-color .8s;
+
+//information colors
+$errorColor:#db6154 !default;
+$infoColor: #accff0 !default;
+$warnColor: #d6851a !default;
+$successColor: #75AB35 !default;

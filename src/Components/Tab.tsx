@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 interface ITabButton {
    title: string;
-   tabIndex?: number;
+   tabIndex: number;
    isActive?: boolean;
-   onClick?(number:number):void;
+   onClick(number:number):void;
 }
 
 const Tab: React.StatelessComponent<ITabButton> = (props) => {

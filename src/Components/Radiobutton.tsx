@@ -1,8 +1,8 @@
 
 import * as React from 'react';
-import {IInputCheckboxProperties} from '../interfaces';
 
-export default class Radiobutton extends React.Component<IInputCheckboxProperties> {
+
+export default class Radiobutton extends React.Component<any> {
 
    render() {
       const {id, label, ...rest} = this.props;

@@ -12,7 +12,7 @@ const IconLink: React.SFC<IProps> = ({ icon, size, className, ...rest }) => {
    });
 
    return (
-      <a href="#" className={classString} {...rest} >
+      <a tabIndex={0} className={classString} {...rest} >
          {icon}
       </a>
    );

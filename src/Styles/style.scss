@@ -1,0 +1,2691 @@
+@charset "UTF-8";
+
+//****************************************************************************
+// Shared
+//****************************************************************************
+
+@import 'shared';
+
+//****************************************************************************
+// Universal (try to keep these few)
+//****************************************************************************
+ 
+* {
+   box-sizing: border-box;
+   margin: 0;
+	padding: 0;
+}
+
+html {
+   box-sizing: border-box;
+   font-size: 1rem;
+   height: 100vh;
+}
+
+body {
+   box-sizing: border-box;
+   font-size: 1rem;
+   font-family: $bodyfont;
+   height: 100vh;
+   line-height: 1.6;
+   color: $grayLight;
+}
+
+h1, h2, h3, h4, h5 {
+   font-family: $headingfont !important;
+   margin-bottom: .5rem;
+}
+
+h1 {
+   font-size: 2.2rem;
+}
+
+h2 {
+   font-size: 1.9rem;   
+}
+
+h3 {
+   font-size: 1.25rem;
+   color: $link;
+   @include themecolor(link);      
+}
+
+a, a:link {
+	font-size: .9rem;
+   text-decoration: none;
+   color: $link;
+   transition: color .2s;
+   cursor: pointer;
+	
+   &:hover,
+   &:active {
+      text-decoration: none;
+      color: darken($color: $link, $amount: 35%)
+   }
+}
+
+ul > li {
+   margin-left: 1rem;
+}
+
+label {
+	display: inline-block;
+	margin: 0;
+}
+
+mark {
+	padding: 0;
+	background-color: $alt;
+	@include themebackground(alt);	
+}
+
+img {
+   display: block;
+   width: 100%;
+}
+
+kbd {
+	margin: 0 0 0 .5rem;
+	padding: 2px 4px;
+	font-size: .9rem;
+	border-radius: $globalRadius;
+	box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+	color: $white;
+	background-color: $grayDarkAlt;
+	@include themecolor(white);	
+	@include themebackground(grayDarkAlt);
+}
+
+input[type="text"] {
+   background: none;
+   width: 100%;
+   outline: none;
+   border:none;
+}
+
+button.disabled,
+input.disabled,
+select.disabled {
+   @extend %disabled;
+}
+
+
+//****************************************************************************
+// Keyframes
+//****************************************************************************
+
+@keyframes rainbow {
+   0%    { border-color: #EE7752; }
+   25%   { border-color: #E73C7E; }
+   75%   { border-color: #23A6D5; }
+   100%  { border-color: #23D5AB; }
+}
+
+@keyframes Gradient {
+	0% 	{ background-position: 0% 50%; }
+	50% 	{ background-position: 100% 50%; }
+	100% 	{ background-position: 0% 50%; }
+}
+
+@keyframes rainbowFlash {
+   0%    { 
+      border-color: #EE7752;
+      box-shadow: 0 0 0 transparent;
+   }
+   25%   { 
+      border-color: #E73C7E;
+      box-shadow: 0 0 .5rem white;
+   }
+   75%   { 
+      border-color: #23A6D5;
+      box-shadow: 0 0 1rem white;
+   }
+   99%  { 
+      border-color: #23D5AB;
+      box-shadow: 0 0 .1rem white;
+   }
+   100%  { 
+      border-color: none;
+      box-shadow: none;
+   }
+}
+
+@keyframes simple-glow {
+	0% { 
+      text-shadow: 0 0 0 white;  
+   }
+   50% {
+      color: #4fa300;
+      text-shadow: 0 0 .3rem white;      
+   }
+	100% 	{ 
+      text-shadow: 0 0 0 white;   
+   }
+}
+
+@keyframes newItemFlash {
+	0% { 
+      transform: scaleY(-1);
+      background-position: 0% 50%; 
+   }
+   50% {
+      background-position: 100% 50%;      
+   }
+	100% 	{ 
+      transform: scaleY(1);
+      background-position: 0% 50%; 
+   }
+}
+
+@keyframes fadeInDrop {
+	0% 	{ 
+      opacity: 0;
+      transform: scale(0);
+      margin-top: -30%;
+   }
+	65% 	{ 
+      opacity: .5;
+      transform: scale(.5);
+      margin-top: -15%;
+   }
+	100% 	{ 
+      opacity: 1;
+      transform: scale(1);
+      margin-top: none;
+
+   }
+}
+
+@keyframes scaleIn {
+	0% 	{
+      filter: blur(15px);
+      opacity: 0;
+      transform: scale(0);
+   }
+	100% 	{ 
+      filter: blur(0);
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+
+
+//****************************************************************************
+// Utility
+//****************************************************************************
+
+
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-page-center {
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.row-flex {
+   display: flex;
+	flex-direction: row;
+
+	&.center {
+		justify-content: center;
+	}
+	&.spaced {
+		justify-content: space-between;
+	}
+	&.center-all {
+		justify-content: center;
+		align-items: center;
+   }
+   &.align {
+      align-items: center;
+   }
+}
+
+.hidden {
+   display: none !important;
+}
+
+.row-spacing {
+   margin-bottom: .9rem;
+   @extend %clearfix;
+}
+
+
+//****************************************************************************
+// Animation
+//****************************************************************************
+
+.shift-background {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 1000%;
+	animation: Gradient 15s ease infinite; 
+}
+
+.gradient-background { 
+	background: linear-gradient(-45deg, $main, #23d5ab, $alt);
+	background-size: 100%;
+}
+
+.rainbow-border {
+  border: .2rem solid #E73C7E;
+  animation: rainbow 3s infinite alternate;
+}
+
+.animated-newItemFlash {
+   background: linear-gradient(-45deg, #ee7752, #e73c7e, #0a6a8d, #00b48a);
+	background-size: 1000%;
+   animation-iteration-count: 1;
+   animation: newItemFlash 1s;
+}
+
+.animated-glow-once {
+   animation-iteration-count: 1;
+   animation: simple-glow 1s linear; 
+}
+
+.animated-fall {
+   animation-iteration-count: 1;
+   animation: fadeInDrop .2s linear; 
+}
+
+.animated--scaleIn {
+   animation-iteration-count: 1;
+   animation: scaleIn .1s linear; 
+}
+
+
+
+//*******************************************************************************************************************************
+// Components (context free)
+//*******************************************************************************************************************************
+
+//link
+.themelink {
+   font-size: 1rem;
+   font-weight: 700;
+   transition: color .2s;
+	text-decoration: none;
+   color: $link;
+	@include themecolor(link);
+	
+	
+   &:hover,
+   &:active {
+		text-decoration: none;
+		color: $alt;
+		@include themecolor(alt);		
+   }
+}
+
+
+//*************************************************************************************************
+// Component | Responsive Field (wrapper)
+//*************************************************************************************************
+
+$labelWidth: 10rem;
+$numericWidth: 10rem;
+
+.themefield {
+   display: flex;
+   flex-direction: row;
+   margin-bottom: .5rem;
+   font-size: $globalFontSize;
+   border: .1rem solid transparentize($color: $black, $amount: .5);
+   border-radius: $globalRadius;
+   @include themeborder(grayMedium);
+
+   .themefield--label {
+      flex: 0 0 $labelWidth;
+      text-align: left;
+      padding-right: .5rem;
+      display: flex;
+      align-items: center;
+      padding: 0 .3rem;
+      font-weight: 500;
+      color: $grayLight;
+      background-color: transparentize($color: $black, $amount: 0.7) ;
+      border-top-left-radius: $globalRadius;
+      border-bottom-left-radius: $globalRadius;
+      cursor: pointer;
+      @include themecolor(grayLight);
+   }
+
+   .themefield--content {
+      flex: 1 1 auto;
+      display: flex;
+
+      & > div:first-child {
+         width: 100%;
+         flex: 1 1 auto;
+      }
+   }
+
+   @include respond-below(sm){
+      flex-direction: column;
+
+      .themefield--label {
+         flex: 0 0 auto;
+         text-align:left;
+         align-self: flex-start;
+      }
+   }
+
+   &.isNumeric {
+      max-width: $numericWidth + $labelWidth;      
+   }
+
+   &.isDisabled {    
+      @extend %disabled;      
+   }
+
+   &.hasError {
+      color: $errorColor;
+      font-weight: 700;
+      margin-bottom: 0;
+
+      & + .themefield--error {
+         color: $errorColor;
+         font-weight: 700;
+         padding: .2rem;
+         margin-bottom: 0.5rem;
+         margin-left: ($labelWidth + .5rem - .2rem);
+
+         @include respond-below(sm){
+            margin-left: 0;
+         }
+      }
+   }
+}
+
+
+//****************************************************************************
+// Component | TextInput
+//****************************************************************************
+
+$inputFontSize: 1rem;
+
+.themeinput {
+   position: relative;
+   display: flex;
+   font-size: $globalFontSize;
+   flex: 1 1 auto;
+   padding: .35rem .5rem;
+   width: 100%;
+   background: none;
+   outline: none;
+   color: $grayLight;
+   @include themecolor(grayLight);	 
+   
+   &:focus {
+      @include focusEffect();
+   }  
+
+   .isNumeric & {
+      max-width: 10rem;
+      text-align: right;
+   }
+
+   .hasError & {
+      background-color: transparentize($color: $errorColor, $amount: .2);
+   }
+
+   .isDisabled & {
+      @extend %disabled;
+   }   
+}
+
+.themeinput--wrapper {margin-bottom: 0.5rem;}
+.themeinput--label {display: block}
+.themeinput--content { display: flex;}
+
+//****************************************************************************
+// Component | Text input -> Material
+//****************************************************************************
+
+$maxFieldWidth: 30rem;
+
+.themeinput--material {
+   position: relative;
+	margin: 1rem 0 .5rem;
+	max-width: $maxFieldWidth;
+
+   input {
+     font-size: 1rem;
+     padding: .35rem;
+     display: block;
+     width: 100%;
+     border: none;
+	  background: none;
+	  outline: none;
+	  color: $grayLight;
+     border-bottom: .1rem solid $grayMedium;
+	  @include themecolor(grayLight);	 
+	  @include themeborder(grayMedium);	   
+   }
+	
+   input:focus { outline: none; }
+	
+   label {
+		font-size: .9rem;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: .35rem;
+      top: .7rem;
+      transition: .2s ease all;
+		color: $grayMedium;
+		@include themecolor(grayMedium);		
+   }
+	
+   input:focus + label,
+	&.hasContent input + label {
+		top: -.7rem;
+      font-size: .8rem;
+		color: $main;
+		@include themecolor(main);		
+   }
+	
+	&.hasError > input {
+      border-color: $errorColor;
+      
+      & + label {
+         font-weight: 900;
+         color: $errorColor;
+         border: $errorColor;
+
+         & + .bar::before {
+            background: $errorColor;
+         }
+      }
+   }
+   
+   &.isDisabled {
+      @extend %disabled;
+	}
+	
+	.bar {
+		position: relative;
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+	
+	.bar::before {
+		content: '';
+		height: .15rem;
+		width: 0;
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		transition: .15s ease all;
+		background-color: $main;
+		@include themebackground(main);	  
+	}
+	
+	/* active state */
+	input:focus ~ .bar::before {
+		width: 100%;
+	}
+	
+	input:required {
+		box-shadow: none;
+	}
+}
+
+//****************************************************************************
+// Component | Textarea
+//****************************************************************************
+
+.themetextarea {  
+   font-size: 1rem;
+   padding: .5rem;
+   width: 100%;
+   min-height: 4rem;
+   max-height: 30rem;
+   resize: vertical;
+   color: $grayLight;
+   background: none;
+   border: none;
+   @include themecolor(grayLight);	 
+   @include themeborder(grayMedium);   
+}
+
+.themetextarea--wrapper {margin-bottom: 0.5rem;}
+.themetextarea--label {display: block}
+.themetextarea--content { display: flex;}
+
+//****************************************************************************
+// Component | Image with caption
+//****************************************************************************
+
+.imageCaptionWrapper {
+	position: relative;
+	background-color: $black;
+
+	&.lg {max-width: 700px;}
+	&.md {max-width: 500px;}
+	&.sm {max-width: 300px;}
+
+	&:hover {
+
+		.imageCaption {
+			visibility: visible;
+			opacity: 1;
+			min-height: 25%;
+		}
+		.imageWithCaption {
+			width: 100%;
+			opacity: .8;
+		}
+	}
+	
+	.imageWithCaption {
+		width: 100%;
+		transition: opacity .2s linear;
+	}
+
+	.imageCaption {
+		@include flex-column();
+		visibility: hidden;
+		opacity: 0;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		min-height: 10%;
+		color: $grayLight;
+		background-color: rgba(0,0,0, .7);
+		padding: 1rem;
+		line-height: 1.3;
+		transition: opacity .2s linear, min-height .2s linear;
+
+		b {
+			margin-bottom: .5rem;
+			display: inline-block;
+		}
+	}
+}
+
+//****************************************************************************
+// Component | Checkbox
+//****************************************************************************
+
+$checkboxSize: 1.8rem;
+
+.themecheckbox {
+	& > input[type="checkbox"]  {
+		position: absolute;
+		left: -999rem;
+
+		&:focus + label {
+			@include focusEffect;
+		}
+
+		&:disabled + label {
+			color: lighten($black, 40%);
+			cursor: default;
+
+			&::before {
+				border-color: lighten($black, 80%);
+				background-color: lighten($black, 80%);
+				border: .1rem solid lighten($black, 80%);
+			}
+
+			&::after {
+				color: lighten($black, 40%);
+			}
+		}
+	}
+
+	[type="checkbox"] + label {
+		@extend %radioCheckboxSharedProperties;
+		padding: .5rem .5rem .5rem 2.9rem;
+      min-height: 1.8rem;
+      
+
+		&:hover {
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);			
+		}
+
+		//bg
+		&::before {
+			content: '';
+			position: absolute;
+			left: .5rem;
+			width: $checkboxSize;
+			height: $checkboxSize;
+			background: none;
+			transition: opacity .2s;
+			box-shadow: $globalShadow;
+			border: .1rem solid $main;
+			@include themeborder(main);			
+		}
+
+		//checkmark
+		&::after {
+			content: '✔';
+			position: absolute;
+			left: .8rem;
+			font-size: 1.5rem;
+			line-height: 1.8;
+			transition: opacity .2s;	
+			color: $tertiary;
+			@include themecolor(tertiary);					
+		}
+	}
+
+	[type="checkbox"]:not(:checked) + label::after {
+		 opacity: 0;
+	}
+
+	[type="checkbox"]:checked + label {
+
+		&::after {
+		 	opacity: 1;
+	 	}
+
+		&::before {
+			background-color: $main;
+			@include themebackground(main);			
+		}
+	}
+}
+
+
+//****************************************************************************
+// Component | heading with variants
+//****************************************************************************
+
+.themeheading {
+   display: block;
+   color: $main;
+
+   & > .icon {
+      margin-right: .5rem;
+   }
+   
+   &.xs {   font-size:1rem;      }
+   &.sm {   font-size:1.25rem;   }
+   &.md {   font-size:1.5rem;    }
+   &.lg {   font-size:2rem;      }
+   &.xl {   font-size:2,5rem;    }
+
+   &.padded {
+      padding: .5rem;
+   }
+
+   &.inline {
+      display: inline;
+      margin: 0;
+   }
+
+	&.negative {
+		background-color: $grayDark;
+		color: $grayLight;
+   }
+
+   &.spacing-above {
+      margin-top: 1rem;
+   }
+   
+   &.underlined {
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-bottom: .1rem solid $main;
+   }
+}
+
+
+// heading size
+h2.themeheading { font-size: 1.5rem;}
+h3.themeheading { font-size: 1.15rem;}
+h4.themeheading { font-size: 1rem;}
+h5.themeheading { font-size: .95rem;}
+
+
+//****************************************************************************
+// Component | Close button (animated x-mark)
+//****************************************************************************
+
+.close-button {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 1.5rem;
+   width: auto;
+   min-width: 2rem;
+	transition: background-color .6s;
+	border-radius: $globalRadius;
+	border: .1rem solid $grayBlack;
+	background-color: $grayBlack;
+	@include themebackground(grayBlack);
+	@include themeborder(grayBlack);
+
+	&.noborder {
+		border: none !important;
+	}
+
+	&.light {
+		background: none;
+	}
+
+	&:hover {
+		background-color: $alt;
+		@include themebackground(alt);
+	}
+
+	&::before,
+	&::after {
+		transform: rotate(-45deg);
+		content: '';
+		position: absolute;
+		display: block;
+		height: .3rem;
+		width: 1.2rem;
+		transition: all .4s ease-out;
+		background-color: $grayDarkAlt;
+		@include themebackground(grayDarkAlt);		
+	}
+
+	&::after {
+		transform: rotate(45deg);
+	}
+
+	&:hover::before,
+	&:hover::after {
+		background-color: $white;
+		transform: rotate(0deg);
+	}
+}
+
+//*************************************************************************************************
+// Component | Tags / Generics
+//*************************************************************************************************
+
+$tagColorPublic: rgb(17, 104, 17);
+$tagColorShared: rgb(13, 109, 109);
+$tagColorPrivate: rgb(61, 52, 150);
+
+@mixin activeColorTag($color) {
+   cursor: pointer;
+   padding: .2rem .5rem;
+   color: $grayLight;
+   background-color: $color;
+   font-weight: 600;
+   user-select: none;
+   transition: color .15s;
+   border-radius: $globalRadius;
+
+   &:hover { color: adjust-hue($color: $color, $degrees: -25%); }
+}
+
+@mixin activeBgTag($color) {
+   background-color: $color;
+   transition: background-color .15;
+
+   &:hover { background-color: darken($color, 20%); }
+}
+
+// interactive (textcolor)
+.tag--link {         @include activeColorTag($link); }
+.interactable {      @include activeColorTag($grayBlack); }
+.tag--public {       @include activeColorTag($tagColorPublic);}
+.tag--private {      @include activeColorTag($tagColorPrivate);}
+.tag--shared {       @include activeColorTag($tagColorShared);}
+.tag--interactive {  @include activeColorTag($link);}
+
+// plain bg
+.generic--bg--private { @include activeBgTag($tagColorPrivate);}
+.generic--bg--public { @include activeBgTag($tagColorPublic);}
+.generic--bg--shared { @include activeBgTag($tagColorShared);}
+.tag--bg--interactive { @include activeBgTag($link);}
+
+// plain color
+.generic--warning {
+   color: $warnColor;
+   font-weight: 700;
+}
+
+.generic--error {
+   color: $warnColor;
+   font-weight: 700;
+}
+.generic--info {
+   color: $infoColor;
+}
+.generic--public {
+   color: $tagColorPublic;
+}
+.generic--shared {
+   color: $tagColorShared;
+}
+.generic--private {
+   color: $tagColorPrivate;
+}
+
+//****************************************************************************
+// Component | Tabs
+//****************************************************************************
+
+.tabs {
+   .tab-titles {
+      border-bottom: .1rem solid $main;
+
+      .tab-title {
+         padding: .2rem .65rem;
+         font-size: 1rem;
+         border: .1rem solid $grayMedium;
+         background-color: transparentize($color: $grayDark, $amount: .5);
+         color: $grayLight;
+         transition: background-color .2s;
+
+         & + .tab-title {
+            margin-left: .5rem;
+         }
+
+         &.active {
+            color: $main;
+         }
+
+         &:hover {
+            background-color: $main;
+            box-shadow: $globalShadow;
+            color: $white;
+         }
+         
+         &:focus {
+            @include focusEffect();
+         }
+
+         &:last-child {
+            border-top-right-radius: .5rem;
+         }
+         &:first-child {
+            border-top-left-radius: .5rem;
+         }
+      }
+   }
+   .tab-content {
+      padding: 1rem;
+   }
+}
+
+//****************************************************************************
+// Component | Notice (emphasis)
+//****************************************************************************
+
+.emphasis-wrapper {
+   display: flex;
+   justify-content: center;
+   border: .1rem solid $grayDark;
+   padding: .35rem;
+   min-height: 2.5rem;
+   border-radius: $globalRadius;
+
+   &.negative {
+      color: $grayLight;
+      background-color: $grayDark;
+      border-color: $grayDark;
+   }
+}
+
+//****************************************************************************
+// Component | Progress bar 
+//****************************************************************************
+
+$smallProgressBarHeight: .5rem;
+$bigProgressBarHeight: 1.5rem;
+
+.themeprogress {
+   position: relative;
+   height: $smallProgressBarHeight;
+	background: rgba(0, 0, 0, .6);
+   border: .1rem solid $grayDarkAlt;
+   box-shadow: $globalShadow;
+   border-radius: $globalRadius;
+   display: flex;
+   justify-content: space-between;   
+
+   &.thick {
+      height: $bigProgressBarHeight;
+
+      span {
+         display: inline-block;
+         height: $bigProgressBarHeight;
+         line-height: $bigProgressBarHeight;
+         text-shadow: 0 0 .1rem black;
+         position: static;
+         z-index: 1;
+         padding: 0 .5rem;
+         pointer-events: none;
+      }
+   }
+
+   &.warning {
+      .themeprogress--fill {
+         background: linear-gradient(to right, $errorColor, $warnColor);         
+      }
+   }
+   
+   .themeprogress--fill {
+      transition: width .2s ease-in-out;
+      border-radius: $globalRadius;
+      height: 100%;
+      background: linear-gradient(to right, $successColor 0%, adjust-hue($successColor, 65%));
+      -webkit-animation: ScrollBackground 3s infinite;
+      -moz-animation: ScrollBackground 3s infinite;
+      -o-animation: ScrollBackground 3s infinite;
+      background-size: 200%;
+      animation: ScrollBackground 3s ease infinite;
+      position: absolute;
+      z-index: 0;
+   }
+}
+
+// animation 
+@keyframes ScrollBackground {
+   0%{background-position:0% 50%}
+   50%{background-position:100% 50%}
+   100%{background-position:0% 50%}
+}
+
+
+//****************************************************************************
+// Component | Button
+//****************************************************************************
+
+.themebutton {
+	color: #fff;
+	font-size: 1rem;
+	border: .15rem solid transparent;
+	font-weight: 700;
+	min-height: 1.8rem;
+	width: auto;
+	min-width: 6rem;
+	padding: .2rem .35rem;
+	text-align: center;
+	line-height: 1.2;
+	transition: background-color .2s;
+	box-shadow: $globalShadow;
+	background-color: $main;
+	@include themebackground(main);	
+
+	&:hover {
+		background-color: $black;
+		color: $white;
+		@include themebackground(grayBlack);
+		@include themecolor(white);				
+	}
+
+	&:focus {
+		@include focusEffect;
+		border: .15rem solid $white;
+      @include themeborder(white);		
+   
+      &::-moz-focus-inner {
+         border: 0;
+      }   
+   }
+
+   &:disabled {
+      filter: grayscale(90%);
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: .7;
+   }
+
+   &.rounded {
+      border-radius: 1rem;
+   }
+
+   &.dark {
+      background-color: $grayBlack;      
+   }
+
+	&.uppercase {
+		text-transform: uppercase;
+	}
+
+	&.wide {
+		width: 100%;
+		display: block;
+   }
+   
+   // space between if repeated buttons
+   & + .themebutton {
+      margin-left: .5rem;
+   }
+
+   // space if icon and text used together
+   & > span:nth-child(2) {
+      margin-left: .5rem;
+   }
+	
+}
+
+
+//****************************************************************************
+// Component | chekcbox (Slider-variant)
+//****************************************************************************
+
+$sliderSize: 1.3rem;
+$sliderBoxSize: 1.3rem;
+
+.themeslider {
+	input[type="checkbox"] {
+		position: absolute;
+		left: -999rem;
+
+		&:focus + label {
+			@include focusEffect;
+		}
+
+		&:disabled + label {
+			color: lighten($black, 80%);
+			cursor: default;
+
+			&::before {
+				background-color: lighten($black, 40%);
+				border: .15rem solid lighten($black, 40%);
+			}
+
+			&::after {
+				color:lighten($black, 80%);
+				background-color: lighten($black, 80%);
+			}
+		}
+	}
+
+	[type="checkbox"] + label {
+		@extend %radioCheckboxSharedProperties;
+		padding: .35rem .35rem .35rem 4.7rem;
+		min-height: 1.8rem;
+
+		&:hover {
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);			
+		}
+
+		//background
+		&::before {
+			content: '';
+			position: absolute;
+			left: .45rem;
+			width: $sliderBoxSize*2;
+			height: $sliderBoxSize;
+			border-radius: $sliderBoxSize;
+			transition: background-color .2s;
+			box-shadow: $globalShadow;
+			border: .2rem solid $grayMedium;
+			background-color: $grayBlack;
+			@include themeborder(grayMedium);
+			@include themebackground(grayBlack);			
+		}
+
+		//slidebutton
+		&::after {
+			content: '';
+			position: absolute;		
+			font-size: 1.5rem; 
+			width: $sliderSize;
+			height: $sliderSize;
+			border-radius: $sliderSize;
+			transition: left .2s, background-color .2s;
+			background-color: $tertiary;
+			@include themebackground(tertiary);			
+		}
+	}
+
+	[type="checkbox"]:not(:checked) + label::after {
+		left: .65rem;
+	}
+
+	[type="checkbox"]:checked + label {
+
+		&::after {
+			left: $sliderBoxSize+.55rem;
+			background-color: $tertiary;
+			@include themebackground(tertiary);			
+	 	}
+
+		&::before {
+			background-color:$main;
+			border-color:$main;
+			@include themebackground(main);
+			@include themeborder(main);						
+		}
+	}
+}
+
+
+
+
+//****************************************************************************
+// Component | Radiobutton
+//****************************************************************************
+
+$radioSize: 1.5rem;
+
+.themeradio {
+	[type="radio"] {
+		position: absolute;
+		left: -999rem;
+
+		&:focus + label {
+			@include focusEffect;
+		}
+
+		&:disabled + label {
+			color:lighten($black, 40%);
+			cursor: default;
+
+			&::before {
+				border-color:lighten($black, 80%);
+				background-color:lighten($black, 80%);
+				border: .1rem solid lighten($black, 80%);
+			}
+
+			&::after {
+            color:lighten($black, 40%);
+         }
+		}
+	}
+
+	//label
+	[type="radio"] + label {
+		@extend %radioCheckboxSharedProperties;
+		padding: .5rem .5rem .5rem 2.5rem;
+		min-height: $radioSize;
+
+		&:hover {
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);			
+		}
+
+		//bg
+		&::before {
+			content: '';
+			position: absolute;
+			left: .5rem;
+			width: $radioSize;
+			height: $radioSize;
+			border-radius: $radioSize;
+			background: none;
+			transition: background-color .2s;
+			box-shadow: $globalShadow;
+			border: .15rem solid $main;
+			@include themeborder(main);						
+		}
+	}
+
+	[type="radio"]:checked + label {
+
+		&::before {
+			background-color: $tertiary;
+			@include themebackground(tertiary);			
+		}
+	}
+}
+
+
+//****************************************************************************
+// Component | Spacing elements 
+//****************************************************************************
+
+// line - spacings
+.line-thin {
+	height: .1rem;
+	margin: .7rem 0;
+	display: block;
+	border-bottom: .1rem solid $main;
+	@include themeborder(main);	
+}
+
+.line-thick {
+	border-bottom: .3rem solid $main;
+	height: .2rem;
+	margin: .7rem 0;
+	display: block;
+	@include themeborder(main);		
+}
+
+// empty space - spacings
+.spacing {
+   display: block;
+	height: .1rem;
+   margin-bottom: .8rem;
+   @extend %clearfix;
+
+   &.lg {
+      margin-bottom: 1.6rem;
+   }
+
+   &.xl {
+      margin-bottom: 3rem;
+   }
+}
+
+
+//****************************************************************************
+// Component | Loader
+//****************************************************************************
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #ffffff;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+
+//****************************************************************************
+// Component | Wizard path
+//****************************************************************************
+
+$line-width:      .3rem;
+$bullet-size:      1.5rem;
+
+ol.wizard-path {
+	@include flex-row;
+	justify-content: space-between;
+	position: relative;
+	overflow: hidden; 
+	min-height: 1.8rem;
+	
+	li {
+		position: relative;
+		text-align: center;
+		flex: 1 1 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		
+		.bullet {
+			text-align: center;
+			width: $bullet-size;
+			height: $bullet-size;
+			border-radius: $bullet-size;
+			position: relative;
+			z-index: 1;
+			transition: border-color .5s;
+			background-color: $main;
+			border: $line-width/1.3 solid $main;
+			@include themebackground(main);	
+			@include themeborder(main);					
+		}
+		& + li:after {
+			content: "";
+			display: block;
+			width: 100%;
+			height: $line-width;
+			position: absolute;
+			left: -50%;
+			top: $bullet-size / 2;
+			z-index: 0;
+			transition: background-color .5s;
+			background-color: $main;
+			@include themebackground(main);			
+		}
+	 }
+
+	li.current ~ li:after {
+		background-color: $grayBlack;
+		@include themebackground(grayBlack);
+	}
+
+	li.current ~ li .bullet {
+		background-color: $grayDarkAlt;
+		border-color: $grayBlack;
+		@include themebackground(grayDarkAlt);
+		@include themeborder(grayBlack);
+	}
+	li.current > .bullet {
+		box-shadow: $globalShadow;
+		background-color: $tertiary;
+		@include themebackground(tertiary);				
+	}
+}
+
+
+//****************************************************************************
+// Error tooltip
+//****************************************************************************
+
+[data-tooltip-error]::before {
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
+	pointer-events: none;
+	position: absolute;
+	padding: .5rem;
+	border-radius: 0 0 .5rem .5rem;
+	color: $errorColor;
+	width: 100%;
+	height: auto;
+	left: 0;
+	top: 100%;
+	z-index: 300;
+	content: attr(data-tooltip-error);
+	background-color: $grayBlack;
+	@include themebackground(grayBlack);
+	
+}
+
+[data-tooltip-error]:hover::before {
+	opacity: 1;
+	visibility: visible;
+}
+
+
+//****************************************************************************
+// Component | infotip
+//****************************************************************************
+
+$tipWidth: 2rem;
+$tipMessageWidth: 14rem;
+
+.tip {
+	width: $tipWidth;
+	padding: .5rem 1rem;
+	opacity: .2;
+	transition: color .2s, opacity .2s;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	font-size: 1rem;
+
+	&:hover {
+		opacity: 1;
+		color: $main;
+		@include themecolor(main);		
+
+		//show tip message on hover
+		.tip-message::before, 
+		.tip-message::after {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.tip-message {
+
+		//content
+		&::before {
+			visibility: hidden;
+			opacity: 0;
+			transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
+			pointer-events: none;
+			position: absolute;
+			padding: .5rem;
+			border-radius: .5rem;
+			width: $tipMessageWidth;
+			height: auto;
+			bottom: 120%;
+			left: -($tipMessageWidth/2 - $tipWidth/2);
+			z-index: 300;
+			content: attr(data-tooltip-info);
+			color: $infoColor;
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);			
+		}
+	
+		//arrow
+		&::after {
+			visibility: hidden;
+			opacity: 0;
+			transition: opacity .15s ease-in-out, visibility .15s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);		
+			content: "";
+			position: absolute;
+			top: -20%;
+			right: .55rem;
+			margin-left: -5px;
+			border-width: 7px;
+			border-style: solid;
+			border-color: $grayBlack transparent transparent transparent;
+		}
+	}
+}
+
+//text inside input field special case
+.themeinput .tip {
+	position: absolute;
+	right: .0;
+	bottom: .0;
+}
+
+.themeinput > input:focus ~ .tip  {
+	opacity: 1;
+	color: $main;
+	@include themecolor(main);	
+
+	.tip-message::before, 
+	.tip-message::after {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+
+//****************************************************************************
+// Component | Modal
+//****************************************************************************
+
+$modalCloseBtnSize: 2rem;
+
+.fade--backdrop {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+	transition: .5 background-color;
+   background-color: rgba(0,0,0,.75);
+   
+   // MODAL
+
+	.thememodal {
+		@include flex-column;
+		background-color: $grayDarkAlt;
+      border-radius: $globalRadius;
+      margin: 1rem;
+		width: 100%;
+		min-height: 11rem;
+		padding: 1rem;
+		position: relative;
+		border: .4rem solid $main;
+		@include themeborder(main);
+      box-shadow: 0 0 .5rem $grayBlack;
+      align-self: flex-start;
+      margin-top: 5%;
+
+      &.xl {
+         max-width: 58rem;
+      }
+   
+      &.lg {
+         max-width: 50rem;
+      }
+
+      &.md {
+         max-width: 40rem;
+      }
+
+      &.sm {
+         max-width: 30rem;
+      }
+
+      .close-button {
+         @include size($modalCloseBtnSize);
+         position: absolute;
+         top: -($modalCloseBtnSize/2);
+         right: -($modalCloseBtnSize/2);
+         border-radius: 100%;
+      }
+
+      .thememodal--heading .themeheading {
+         text-align: center;
+         font-size: 1.5rem;
+         margin: .8rem;
+         font-weight: 700;				
+      }
+
+      .thememodal--content {
+         @include flex-column;
+         flex: 1 1 auto;
+
+         .thememodal--fill {
+            flex: 1 1 auto;
+         }
+      }      
+   }
+
+   // CONFIRMATION
+   &.confirmPopUp {
+      @include flex-center();
+
+      .thememodal {
+         align-self: center;
+         margin: none;
+         max-width: 25rem;
+         width: 25rem;
+         min-height: 10rem;
+   
+         .thememodal--content {
+            text-align: center;
+
+            .thememodal--fill {
+               @include flex-column;
+               justify-content: center;
+            }
+         }
+      }
+   }
+}
+
+body.modalIsOpen {
+   overflow-y: hidden;
+}
+
+.product--modal {
+   display: flex;
+   flex-direction: column;
+   min-height: 75vh; 
+
+   .tabs {
+      flex: 1 1 auto;
+   }
+
+   .row-flex {
+      flex: 0 0 auto;
+   }
+}
+
+
+//****************************************************************************
+// Component | File upload 
+//****************************************************************************
+
+.upload--preview {
+   @include flex-center();
+   margin: .5rem;
+   border: .4rem dotted $grayMedium;
+   padding: 1.4rem;
+   width: 100%;
+   min-height: 10rem;
+   transition: border-color .2s, color .2s;
+   position: relative;
+   border-radius: $globalRadius*2;
+
+   &:hover {
+      border-color: $link;
+      color: $link;
+   }
+
+   .upload--preview--noImage {
+      @include flex-center();
+      line-height: 1.1;
+      text-align: center;
+
+      .fas {
+         font-size: 2.2rem;
+         margin-bottom: .5rem;
+      }
+   }
+   
+   .upload--preview--image {
+      pointer-events: none;
+      display: block;
+      max-height: 20rem;
+      width: auto;
+      max-width: 100%;
+   }
+
+   input[type="file"] {
+      display: none;
+   }
+}
+
+.button--upload {
+   input {
+      display: none;
+   }
+}
+
+//****************************************************************************
+// Component | Flex Table
+//****************************************************************************
+
+.item-link {
+	cursor: pointer;
+}
+
+.flex-table {
+	display: flex;
+   flex-direction: column;
+   border: .1rem solid transparentize($color:$grayBlack, $amount: .8);
+   border-radius: $globalRadius;
+   box-shadow: $globalShadow;
+   
+   .table-row:nth-child(odd) {
+      background-color: $grayDarkAlt;
+   }
+
+   .table-row:first-child {
+      border-top-left-radius: $globalRadius; 
+      border-top-right-radius: $globalRadius;
+   }
+
+   .table-row:last-child {
+      border-bottom-left-radius: $globalRadius;
+      border-bottom-right-radius: $globalRadius;
+   }
+}
+
+.table-row {
+   @include flex-row;
+   background-color: $grayDark;
+	border-bottom: .1rem solid $grayBlack;
+   @include themeborder(grayBlack);
+   position: relative;
+
+	&:last-child {
+		border: none;
+   }
+
+	& > div {
+		border-right: .1rem solid $grayBlack;
+		@include themeborder(grayBlack);
+		
+		&:last-child {
+			border: none;
+		}
+	}
+
+	&:hover, &:nth-child(odd):hover  {
+		background-color: #c5ff571a;
+   }
+   
+   //completed (special style)
+   &.complete {
+
+      .cell-status {
+         color: $main;
+         @include themecolor(main);		
+      }
+
+      .cell-auto {
+         color: $grayMedium;
+         @include themecolor(grayMedium);		
+      }
+   }
+}
+
+
+.cell-15px {   @include flex-cell(0, 0, 1rem); }
+.cell-30px {   @include flex-cell(0, 0, 2rem); }
+.cell-60px {   @include flex-cell(0, 0, 4rem); }
+.cell-120px {  @include flex-cell(0, .5, 8rem); }
+.cell-200px {  @include flex-cell(0, .5, 14rem); }
+.cell-auto {   @include flex-cell(1, 1, 20rem); }
+
+.cell-status {
+	@include flex-cell(0, 0, 3rem);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	.fa {
+		font-size: 1.5rem;
+	}
+}
+.cell-symbol { @include flex-cell(0, 0, 2rem); }
+.cell-name { @include flex-cell(0, .5, 12rem); }
+.cell-type { @include flex-cell(0, .5, 8rem); }
+.cell-desc { @include flex-cell(1, 1, 18rem); }
+.cell-tags { @include flex-cell(1, 1, 300px); }
+.cell-id {	@include flex-cell(0, 0, 60px); }
+
+
+//*******************************************************************************************************************************************************
+// Plugin overwrites
+//******************************************************************************************************************************************************
+
+//****************************************************************************
+// Plugin (style overwrite) | React-Select
+//****************************************************************************
+
+.Select-control {
+	box-shadow: none;
+	background: none !important;
+   border: none;
+   color: $grayLight;
+	@include themebackground(grayDark);
+	// border: .05rem solid $grayMedium;
+   // @include themeborder(grayMedium);
+
+   .Select-value {
+      @include themecolor(grayLight);
+      @include themeborder(grayMedium);
+      border-color: $grayMedium;
+      color: $link;
+      margin-top: 3px;
+
+      .Select-value-label {
+         color: $grayLight !important;
+      }
+   }
+   .Select-value-icon {
+      @include themeborder(grayMedium);
+      border-color: $link;
+   }
+}
+
+.Select-menu-outer {
+   background: $grayDarkAlt;
+   color: $grayLight;
+   @include themecolor(grayLight);
+   @include themebackground(grayDarkAlt);   
+}
+
+
+//****************************************************************************
+// Plugin (style overwrite) | React-Daypicker 
+//****************************************************************************
+
+.DayPickerInput {
+
+   input {
+      background: none;
+      border:none;
+   }
+}
+
+
+//****************************************************************************
+// Plugin (style overwrite) | Toastr => Notifications
+//****************************************************************************
+
+#toast-container {
+
+	.toast {
+		max-width: 35rem;
+		min-width: 25rem;
+	}
+
+	.toast.succes {
+		background-color: $main;
+		@include themebackground(main);
+	}
+
+	.toast-message {
+		line-height: 1.2;
+	}
+}
+
+
+//*******************************************************************************************************************************************************
+// Layout Elements
+//******************************************************************************************************************************************************
+
+
+//****************************************************************************
+// Layout
+//****************************************************************************
+
+.body--layout {
+	min-height: 100vh;
+	height: auto;
+   display: flex;
+	flex-direction: column;
+	color: $grayLight;
+	@include themecolor(grayLight);
+}
+
+.login {
+   @include flex-center();
+   min-height: 100vh;
+   height: auto;
+   color: $grayLight;
+   background: radial-gradient($grayDarkAlt, $grayDark);
+   background-color: $grayBlack;
+   @include themecolor(grayLight);
+
+   .login--window {
+      width: 100%;
+      max-width: 25rem;
+      border: .35rem solid $main;
+      background-color: $grayDark;
+      @include themebackground(grayDarkAlt);      
+      @include themeborder(main);
+      box-shadow: $globalShadow;
+      
+      .login--window--title {
+         margin-top: 1rem;
+         display: flex;
+         justify-content: center;
+      }
+      .login--window--content {
+         padding: 2rem;
+         display: flex;
+         flex-direction: column;
+
+         .input-text {
+            width: 100%;
+            text-align: center;
+         }
+
+         .loginBtn {
+            margin-top: 3rem;
+         }
+
+         .forgot-pass {
+            display: flex;
+            justify-content: center;
+            padding: 1.5rem 0;
+         }
+      }
+   }
+}
+
+.content-layout {
+	display: flex;
+	flex-direction: row;
+	flex: 1 1 auto;
+}
+
+nav.navigation {
+	height: auto;
+   flex: 0 0 15rem;
+	border-right: .05rem solid $grayBlack;
+	background-color: $grayDark;
+	transition: $globalTransitionColors;
+	@include themeborder(grayBlack);	
+	@include themebackground(grayDark);
+}
+ 
+main.main {
+   flex: 1 1 auto;
+   height: auto;
+	transition: $globalTransitionColors;
+	background-color: $grayDarkAlt;
+	@include themebackground(grayDarkAlt);
+}
+
+footer.footer {
+	padding: .4rem;
+	text-align: center;
+	border-top: .05rem solid $grayBlack;
+	background-color: $grayDarkAlt;
+	transition: $globalTransitionColors;
+	@include themeborder(grayBlack);	
+	@include themebackground(grayDarkAlt);
+}
+
+//****************************************************************************
+// Navigation
+//****************************************************************************
+
+nav.navigation {
+
+	//navigation wrapper
+   .navi-list {
+      width: 100%;
+      list-style: none;
+      display: flex;
+		flex-direction: column;
+		position: sticky;
+		top:0;
+   }
+   
+   //navi group title 
+   .navi-heading { 
+      color: $grayBlack !important;
+   }
+
+	//single nav item (li)
+	.navi-item {
+      margin: 0;
+
+      & > a {
+         padding: .6rem;
+         font-size: 1rem;
+         font-weight: 400;
+         text-align: left;
+         border-top: .15rem solid transparent;
+         border-bottom: .15rem solid transparent;
+         white-space: nowrap;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         color: $grayLight;
+         @extend %bgAndColorTransition;
+         @include themecolor(grayLight);	
+
+         &:focus {
+            @include focusEffect;
+         }
+   
+         &:hover {
+            color: $main;
+            border-top-color: $main;
+            border-bottom-color: $main;
+            @include themeborder(main);
+            @include themecolor(main);						
+         }
+   
+         &.active {
+            color: $white;
+            background-color: $main;
+            @include themebackground(main);
+            &:hover {
+               color: $white;
+            }						
+         }
+         .fa, .fas, .far {
+            flex: 0 0 4rem;
+            font-size: 1.2rem;
+            text-align: center
+         }
+   
+         .pagename {
+            flex: 1 1 auto;
+         }
+         
+         @include respond-below(lg){
+            padding: 1rem .7rem ;
+            text-align: center;
+            border: .15rem solid transparent;
+   
+            &:hover {
+               border: .15rem solid $main;
+               @include themeborder(main);				
+            }
+   
+            .fa, .fas {
+               font-size: 1.5rem;
+               flex: 1 1 auto;
+            }
+      
+            .pagename {
+               display: none;
+            }
+         }
+      }							
+	}
+
+	@include respond-below(lg){
+		flex: 0 0 5rem;
+	}
+	
+	
+	@include respond-below(sm){
+		flex: 0 0 2.5rem;
+	}
+}
+
+//****************************************************************************
+// Footer
+//****************************************************************************
+
+footer {
+	a, a:link {
+		color: $grayMedium;
+		@include themecolor(grayMedium);
+		
+	}
+}
+
+
+//*******************************************************************************************************************************************************
+// Pages
+//******************************************************************************************************************************************************
+
+//****************************************************************************
+// Page | Dashboard 
+//****************************************************************************
+
+.server-statistics {
+	@include flex-row;
+
+	.statistic {
+		@include flex-center;
+		flex: 1 1 auto;
+		padding: 1rem;
+		margin: .5rem;
+		min-height: 10rem;
+		border: .1rem solid $main;
+		background-color: $grayDark;
+		text-align: center;
+		@include themeborder(grayBlack);
+		@include themebackground(grayDark);
+			
+		.phrase {
+			font-size: 1.2rem;
+		}
+		.counter {
+			font-weight: 900;
+			color: $alt;
+			@include themecolor(alt);
+			
+		}
+	}
+}
+
+.dashboard {
+	width:100%;
+	min-height: 60vh;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	a.dash-item {
+		flex: 1 0 10rem;
+		display: flex;
+		flex-direction: column;	
+		justify-content: center;
+		margin: .5rem;
+		box-shadow: $globalShadow;
+		transition: background-color .2s;
+		border: .05rem solid $grayBlack;
+		background-color: $grayDark;
+		@include themeborder(grayBlack);
+		@include themebackground(grayDark);
+		
+
+		&:hover {
+			background-color: $main;
+			color: $white;
+			@include themebackground(main);
+			@include themecolor(white);						
+		}
+
+		.pagesymbol {
+			padding: 1rem;
+			text-align: center;
+			font-size: 3.3rem;
+			
+		}
+		.pagetitle {
+			padding: 1rem;
+			text-align: center;
+			font-weight: 400;		
+		}
+	}
+}
+
+
+//****************************************************************************
+// Page | Complex example page
+//****************************************************************************
+
+
+.Complex--wrapper {
+
+   .product-placeholder {
+      padding: 1rem;
+      background-color: $grayDark;
+      color: $grayLight;
+      text-align: center;
+      box-shadow: $globalShadow;
+      border-radius: $globalRadius;
+   }
+
+   .type-label {
+      padding: .2rem .5rem;
+      margin-left: 0.5rem;
+      background-color: $main;
+      color: $white;
+      border-radius: $globalRadius;
+   }
+
+}
+
+.avatar--grid {
+   background-color: $grayBlack;
+   margin: 1rem 0;
+   display: grid;
+   grid-template-columns: 25% 25% 25% 25%;
+
+   .avatar {
+      position: relative;
+      object-fit: cover;
+      padding: .2rem;
+
+      &.selected {
+         border: .15rem solid $main;
+
+         &:after {
+            content: "✔";
+            text-shadow: 0 0 5px black;
+            font-size: 2.5rem;            
+            position: absolute;
+            padding: .25rem;
+            top: 0;
+            right: 0;
+            color: $main;
+            @include themecolor(main);
+            @include flex-center();
+         }
+      }
+   }
+
+
+}
+
+
+//****************************************************************************
+// Page | CoinFlipper
+//****************************************************************************
+
+.coinHeading {
+   
+   h3 {
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 1rem;
+      background-color: $grayBlack;
+      color: $grayMedium;
+      border: .1rem solid $main;
+   }
+}
+
+@keyframes flipHeads {
+   from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+   to { -webkit-transform: rotateY(1800deg); -moz-transform: rotateY(1800deg); transform: rotateY(1800deg); }
+ }
+ @keyframes flipTails {
+   from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+   to { -webkit-transform: rotateY(1980deg); -moz-transform: rotateY(1980deg); transform: rotateY(1980deg); }
+ }
+
+.coinFlipWrap {
+   @include flex-center();
+
+   .coin {
+      @include size(12rem);
+      @include flex-center();
+      border-radius: 50%;
+      border: .2rem solid $main;
+      color: $main;
+      text-align: center;
+      line-height: 50%;
+      font-weight: 900;
+      font-size: 3rem;
+      background-color: $grayBlack;
+      box-shadow: $globalShadow;
+      cursor: pointer;
+      user-select: none;
+      -moz-user-select: none;
+      transition: background-color .2s, color .2s;
+
+      &:hover {
+         background-color: $main;
+         color: $white;
+      }
+
+      &.heads {
+         animation: flipHeads 2s;
+      }
+
+      &.tails {
+         animation: flipTails 2s;         
+      }
+   }
+}
+
+.countHeading {
+   @include flex-center();
+   flex-direction: column;
+   text-align: center;
+   background-color: $grayDark;
+   border-radius: $globalRadius;
+   font-weight: 900;
+   border: .1rem solid $main;
+   flex: 0 0 48%;
+
+   div:first-child {
+      font-size: 1.1rem;
+      margin-top: .5rem;
+      font-weight: 700;
+   }
+   div:not(first-child) {
+      font-size: 2.5rem;
+   }
+}
+
+
+//****************************************************************************
+// Page | Live Chat (page)
+//****************************************************************************
+
+.chatwindow {
+   @include flex-column;
+	justify-content: space-between;
+   min-height: 40rem;
+   max-height: 50rem;
+	border-radius: $globalRadius;
+	padding: .5rem;
+	border: .1rem solid $grayBlack;
+	@include themeborder(grayBlack);	
+
+   //message history
+   .chatlog {
+      flex: 1 1 auto;
+      overflow-y: hidden;
+      overflow-x: hidden;
+
+      .line {
+			@include flex-row;
+			align-items: center;
+         padding: .3rem;
+         border-radius: $globalRadius;
+         margin-bottom: .3rem;
+         background-color: $grayBlack;
+			@include themebackground(grayBlack);
+			
+         &:hover {
+				background-color: $grayDarkAlt;
+				@include themebackground(grayDarkAlt);				
+
+            .line-timestamp  {
+					color: $alt;
+					@include themecolor(alt);					
+            }
+         }
+
+         .line-user {
+            flex: 0 0 5.2rem;
+            font-weight: 900;
+            // color: $main;
+				margin-left: .45rem;
+				@include themecolor(main);				
+
+            .fa {
+               padding-right: .25rem;
+            }
+         }
+
+         .line-message {
+            flex: 1 1 auto;
+            padding-left: .5rem;
+         }
+
+         .line-timestamp {
+            flex: 0 0 3rem;
+				color: $grayDarkAlt;
+				@include themecolor(grayDarkAlt);
+				
+         }
+
+         &.user-system {
+            background-color: #44565a;
+
+            .line-user {
+               color: skyblue;
+            }
+         }
+         &.user-admin .line-user {color: gold;}
+      }
+	}
+}
+
+.user-selection {
+	@include flex-row;
+	flex-wrap: wrap;
+
+	.selectable-user {
+		@include flex-column;
+		flex: 1 1 auto;
+		margin: 1rem;
+		transition: background-color .2s;
+		box-shadow: $globalShadow;
+		border-radius: $globalRadius;
+		cursor: pointer;
+		border: .05rem solid $grayBlack;
+		background-color: $grayDark;
+		@include themeborder(grayBlack);		
+		@include themebackground(grayDark);		
+
+		&.takeable {
+
+			&:hover {
+				background-color: $main;
+				@include themebackground(main);
+				
+				.user-initial {
+					background-color: $grayBlack;		
+					@include themebackground(grayBlack);							
+				}
+			}
+
+			.user-initial {
+				border-bottom: .2rem solid $main;
+				@include themeborder(main);				
+			}
+		}
+
+		&.taken {
+			opacity: .25;
+			cursor: default;
+
+			.user-initial {
+				border-bottom: .2rem solid $errorColor;
+			}
+		}
+
+		&.owned {
+			border: .15rem solid $main;
+			@include themeborder(main);
+			
+			.user-initial {
+				background-color: $grayDark;
+			}			
+		}
+		.user-initial {
+			@include flex-center;
+			font-size: 6rem;
+			font-weight: 700;
+			padding: 1rem;
+			transition: background-color .2s;
+			background-color: $grayMedium;
+			@include themebackground(grayMedium);			
+		}
+		.user-name {
+			padding: 1rem;
+			@include flex-center;
+		}
+	}
+}
+
+// TODO: REWORK
+//live chat
+.flex-row-table {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	.input-text {
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: .7rem;
+   }
+}
+
+
+//****************************************************************************
+// Page | gallery
+//****************************************************************************
+
+.gallery {
+   .item{
+      border-bottom: .1rem solid $black;
+      box-shadow: $globalShadowInset;
+
+      .item--content {
+         padding: 2rem 0 2.5rem 0;
+      }
+   }
+   .themeheading.negative {
+      position: sticky;
+      display: inline-block;
+      padding: .5rem;
+      top: 3rem;
+      z-index: 200;
+      margin: 0;
+      background-color: transparentize($color: $black, $amount: .5);
+   }
+   .settings {
+      display: flex;
+      align-items: center;
+      padding: .25rem;
+      background-color: $grayBlack;
+      position: sticky;
+      top: 0;
+      z-index: 300;
+
+      @include respond-below(md) {
+         flex-wrap: wrap;
+         justify-content: flex-start;
+
+         & > label{
+            display: none;
+         } 
+         
+         & >div {
+            flex: 0 0 50%;
+         }
+      }
+
+      @include respond-below(sm) {
+         flex-direction: column;
+         justify-content: flex-start;
+         align-content: flex-start;
+         
+         & >div {
+            flex: 1 1 auto;
+         }
+      }
+   }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////¨
+/////////////////////////////////////////////////////////////////////////////
+
+
+//****************************************************************************
+// Panel | Announcement 
+//****************************************************************************
+
+.top-panel {
+   display: flex;
+
+   .announcement {
+      flex: 1 1 auto;
+		height: auto;
+		min-height: 6rem;
+		overflow: hidden;
+      padding: .5rem;
+      text-align: center;
+      background-color: $grayDark;
+		border: .1rem solid $grayBlack;
+		@include themebackground(grayDark);
+		@include themeborder(grayBlack);				
+   }
+}
+
+//****************************************************************************
+// Timer
+//****************************************************************************
+
+
+.time-wrap {
+   display: flex;
+   flex-direction: row;
+
+   margin-top: 1rem;
+
+   .time-block {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+
+      .time-content {
+			color: $alt;
+			@include themecolor(alt);			
+
+         h3 {
+            font-size: 2rem;
+            text-align: center;
+         }
+      }
+   }
+}
+
+//****************************************************************************
+// ScrollSpy
+//****************************************************************************
+
+.scrollspy {
+   margin-top: 1rem;
+   display: flex;
+
+   .is-inview {
+      background-color: $alt;
+		color: $white;
+		@include themebackground(alt);
+		@include themecolor(white);		
+   }
+
+   .scrollNav {
+      flex: 0 0 8rem;
+
+      ul {
+         position: sticky;
+         top: 1.2rem;
+      }
+
+      li {
+         list-style: none;
+         padding-left: 1.2rem;
+      }
+
+      a {
+         display: block;
+         width: 100%;
+         padding: .7rem;
+         text-align: right;
+       }
+   }
+
+   .scrollContent {
+      flex: 1 1 200px;
+   }
+}
+
+//****************************************************************************
+// Utility | Content wrappers
+//****************************************************************************
+
+@mixin content($maxWidth){
+   padding: 3rem;
+   transition: padding .2s;
+   margin: 0 auto;
+   max-width: $maxWidth;
+
+   @include respond-below(sm){
+      padding: 2rem;
+   }
+   @include respond-below(xs){
+      padding: 1rem;
+   }
+}
+
+.content--full {  @include content(100%);}
+.content--xl {    @include content(74rem);}
+.content--lg {    @include content(56rem);}
+.content--md {    @include content(40rem);}
+.content--sm {    @include content(30rem);}
+
+//*************************************************************************************************
+// Utility | Content Limiter (restrict width)
+//*************************************************************************************************
+
+@mixin limiter($maxWidth){
+   max-width: $maxWidth;
+}
+
+.limiter--xl { @include limiter(79rem); }
+.limiter--lg { @include limiter(65rem);}
+.limiter--md { @include limiter(42rem);}
+.limiter--sm { @include limiter(32rem);}
+
+
+
+//*************************************************************************************************
+// Plugin overwrite | React-datetime
+//*************************************************************************************************
+
+.rdtPicker {
+   border: .1rem solid $main !important;
+   font-family: $bodyfont !important;
+   width: 20rem !important;
+   padding: .6rem !important;
+   box-shadow: 0 0 5px skyblue !important;
+   font-size: 1.2rem !important;
+
+   tr th.rdtSwitch,
+   tr th.rdtNext,
+   tr th.rdtPrev {
+      color: $main !important;
+   }
+
+   td.rdtToday::before {
+      border-bottom-width: 12px !important;
+      border-left-width: 12px !important;
+      border-bottom-color: $main !important;
+   }
+
+   td.rdtDay {
+      transition: background-color .25s ease-out, color .25s ease-out;
+      padding: .5rem !important;
+      border-radius: $globalRadius !important;
+   }
+
+   td.rdtDay:hover {
+      background: $main !important;
+      color: $white !important;
+   }
+}

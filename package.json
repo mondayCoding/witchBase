@@ -1,37 +1,50 @@
 {
-  "name": "witchbase",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "sass": "node-sass --watch --recursive --output src --source-map true --source-map-contents src --output-style compact"
-  },
-  "dependencies": {
-    "classnames": "^2.2.6",
-    "firebase": "^5.5.1",
-    "react": "^16.5.1",
-    "react-confirm": "^0.1.18",
-    "react-dom": "^16.5.1",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "2.17.0",
-    "react-select": "^2.0.0",
-    "typescript": "^3.0.3"
-  },
-  "devDependencies": {
-    "@types/classnames": "^2.2.6",
-    "@types/firebase": "^3.2.1",
-    "@types/jest": "^23.3.2",
-    "@types/node": "^10.9.4",
-    "@types/react": "^16.4.14",
-    "@types/react-confirm": "^0.1.2",
-    "@types/react-dom": "^16.0.7",
-    "@types/react-router": "^4.0.31",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/react-select": "^2.0.3",
-    "typescript": "^3.0.3"
-  }
+	"name": "witchbase",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"start": "react-scripts-ts start",
+		"build": "react-scripts-ts build",
+		"test": "react-scripts-ts test --env=jsdom",
+		"eject": "react-scripts-ts eject",
+		"sass": "node-sass --watch --recursive --output src --source-map true --source-map-contents src --output-style compact"
+	},
+	"dependencies": {
+		"classnames": "^2.2.6",
+		"firebase": "^5.5.1",
+		"react": "^16.5.1",
+		"react-confirm": "^0.1.18",
+		"react-dom": "^16.5.1",
+		"react-router": "^4.3.1",
+		"react-router-dom": "^4.3.1",
+		"react-scripts-ts": "4.0.8",
+		"react-select": "^2.0.0",
+		"typescript": "^3.0.3"
+	},
+	"devDependencies": {
+		"@types/classnames": "^2.2.6",
+		"@types/firebase": "^3.2.1",
+		"@types/jest": "^23.3.2",
+		"@types/node": "^10.9.4",
+		"@types/react": "^16.4.14",
+		"@types/react-confirm": "^0.1.2",
+		"@types/react-dom": "^16.0.7",
+		"@types/react-router": "^4.0.31",
+		"@types/react-router-dom": "^4.3.1",
+		"@types/react-select": "^2.0.3",
+		"node-sass": "^4.9.3",
+		"prettier": "^1.14.3",
+		"prettier-stylelint": "^0.4.2",
+		"stylelint": "^9.6.0",
+		"stylelint-config-sass-guidelines": "^5.2.0",
+		"stylelint-order": "^1.0.0",
+		"stylelint-scss": "^3.3.1",
+		"typescript": "^3.0.3"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	]
 }

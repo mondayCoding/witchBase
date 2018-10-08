@@ -1,0 +1,16 @@
+{
+	"extends": "stylelint-config-sass-guidelines",
+	"defaultSeverity": "warning",
+	"plugins": ["stylelint-scss", "stylelint-order"],
+	"rules": {
+		"string-quotes": "single",
+		"indentation": "tab",
+		"number-leading-zero": null,
+		"order/properties-alphabetical-order": true,
+		"max-nesting-depth": 5,
+		"color-named": null,
+		"selector-no-qualifying-type": null,
+		"selector-class-pattern": null,
+		"selector-max-compound-selectors": 5
+	}
+}

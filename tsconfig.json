@@ -23,7 +23,9 @@
     "resolveJsonModule": true,
     "paths": {
       "Utils/*": [ "src/Utils/*" ],
+      "UtilsUI/*": [ "src/UtilsUI/*" ],   
       "Containers/*": [ "src/Containers/*" ],
+      "Constants/*": [ "src/Constants/*" ],
       "Common/*": [ "src/Components/*" ],
       "Services/*": [ "src/Services/*" ],
       "Models/*": [ "src/Models/*" ],

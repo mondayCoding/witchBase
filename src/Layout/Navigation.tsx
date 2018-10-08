@@ -15,34 +15,44 @@ export default class Navigation extends React.Component {
             </li>
 
             <li className="navi-item">
-               <NavLink exact={true} to={routes.SIGN_IN} activeClassName="active" title="Dashboard">
+               <NavLink to={routes.SIGN_IN} activeClassName="active" title="Dashboard">
                   {navicons.dashboard}
-                  <span className="pagename">Dashboard</span>
+                  <span className="pagename">Sign In</span>
                </NavLink>
             </li>
 
             <li className="navi-item">
-               <NavLink exact={true} to={routes.LANDING} activeClassName="active" title="Create Character">
+               <NavLink to={routes.SIGN_UP} activeClassName="active" title="Dashboard">
+                  {navicons.dashboard}
+                  <span className="pagename">Sign Up</span>
+               </NavLink>
+            </li>
+
+            <li className="navi-item">
+               <NavLink to={routes.LANDING} activeClassName="active" title="Create Character">
                   {navicons.createchar}
-                  <span className="pagename">Create Character</span>
+                  <span className="pagename">Landing</span>
                </NavLink>
             </li>
 
             <li className="navi-item">
-               <NavLink exact={true} to={routes.HOME} activeClassName="active" title="Soon™">
+               <NavLink to={routes.HOME} activeClassName="active" title="Soon™">
                   {navicons.soon}
-                  <span className="pagename">Soon™</span>
+                  <span className="pagename">Home™</span>
                </NavLink>
             </li>
 
-            <li className="navi-heading">
-               <span>Se</span>
+            <li className="navi-item">
+               <NavLink to={routes.ACCOUNT} activeClassName="active" title="Missions">
+                  {navicons.missions}
+                  <span className="pagename">Account</span>
+               </NavLink>
             </li>
 
             <li className="navi-item">
-               <NavLink exact={true} to={routes.ACCOUNT} activeClassName="active" title="Missions">
+               <NavLink to={routes.PASSWORD_FORGET} activeClassName="active" title="Missions">
                   {navicons.missions}
-                  <span className="pagename">Gallery</span>
+                  <span className="pagename">Forgot password</span>
                </NavLink>
             </li>
 

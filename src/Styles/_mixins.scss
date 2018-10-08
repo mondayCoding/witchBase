@@ -1,202 +1,184 @@
-
 //****************************************************************************
 // Theme mapping (color versioning)
 //****************************************************************************
 
 $themes: (
-   red: (
-      main: 			rgb(228, 105, 100),
-      alt: 				#e0863b,
-		tertiary:		rgb(236, 235, 154),
-		link:				#f35f4b,
-		grayBlack:		#222,
-		grayDark	:		rgb(50, 50, 50),
-		grayDarkAlt:	rgb(58, 58, 58),
-		grayMedium:		rgba(110, 110, 110, 1),
-		grayLight:		rgba(220, 220, 220, 1),
-		white:			#fff,
-		black:			rgb(0,0,0)		
-   ),
-   light: (
-      main: 			rgb(56, 216, 96),
-      alt: 				#19b4a0,
-		tertiary:		rgb(206, 234, 236),
-		link:				#23d5a0,		
-		grayBlack:		#222,
-		grayDark	:		rgb(224, 224, 224),
-		grayDarkAlt:	rgb(255, 255, 255),
-		grayMedium:		rgba(110, 110, 110, 1),
-		grayLight:		rgb(39, 39, 39),
-		white:			#fff,
-		black:			rgb(0,0,0),		
+	red: (
+		main: rgb(228, 105, 100),
+		alt: #e0863b,
+		tertiary: rgb(236, 235, 154),
+		link: #f35f4b,
+		grayBlack: #222,
+		grayDark: rgb(50, 50, 50),
+		grayDarkAlt: rgb(58, 58, 58),
+		grayMedium: rgba(110, 110, 110, 1),
+		grayLight: rgba(220, 220, 220, 1),
+		white: #fff,
+		black: rgb(0, 0, 0)
+	),
+	light: (
+		main: rgb(56, 216, 96),
+		alt: #19b4a0,
+		tertiary: rgb(206, 234, 236),
+		link: #23d5a0,
+		grayBlack: #222,
+		grayDark: rgb(224, 224, 224),
+		grayDarkAlt: rgb(255, 255, 255),
+		grayMedium: rgba(110, 110, 110, 1),
+		grayLight: rgb(39, 39, 39),
+		white: #fff,
+		black: rgb(0, 0, 0)
 	),
 	violet: (
-      main: 			rgb(221, 36, 206),
-      alt: 				#f06bf5,
-		tertiary:		rgb(235, 231, 247),
-		link:				#a76ff0,
-		grayBlack:		#222,
-		grayDark	:		rgb(50, 50, 50),
-		grayDarkAlt:	rgb(58, 58, 58),
-		grayMedium:		rgba(110, 110, 110, 1),
-		grayLight:		rgba(220, 220, 220, 1),
-		white:			#fff,
-		black:			rgb(0,0,0)		
+		main: rgb(221, 36, 206),
+		alt: #f06bf5,
+		tertiary: rgb(235, 231, 247),
+		link: #a76ff0,
+		grayBlack: #222,
+		grayDark: rgb(50, 50, 50),
+		grayDarkAlt: rgb(58, 58, 58),
+		grayMedium: rgba(110, 110, 110, 1),
+		grayLight: rgba(220, 220, 220, 1),
+		white: #fff,
+		black: rgb(0, 0, 0)
 	)
-)!default;
- 
- 
+) !default;
+
 //Query breakpoints
 $breakpoints: (
-  xs: 576px,
-  sm: 768px,
-  md: 994px,
-  lg: 1140px,
-  xl: 1600px,
-  xxl: 1900px,
+	xs: 576px,
+	sm: 768px,
+	md: 994px,
+	lg: 1140px,
+	xl: 1600px,
+	xxl: 1900px
 );
 
-
-//****************************************************************************
+// ****************************************************************************
 // Media Query helpers
-//****************************************************************************
-
-//Respond above breakpoint
+// ****************************************************************************
+// Respond above breakpoint
 @mixin respond-above($breakpoint) {
-
 	@if map-has-key($breakpoints, $breakpoint) {
-
 		$breakpoint-value: map-get($breakpoints, $breakpoint);
-
 		@media screen and (min-width: $breakpoint-value) {
 			@content;
 		}
-	} 
-	@else {
-		@warn 'Invalid breakpoint: #{$breakpoint}.';
-	}
-}
-
-//Respond below breakpoint
-@mixin respond-below($breakpoint) {
-
-	@if map-has-key($breakpoints, $breakpoint) {
-
-		$breakpoint-value: map-get($breakpoints, $breakpoint);
-
-		@media screen and (max-width: ($breakpoint-value - 1)) {
-			@content;
-		}
-
 	} @else {
 		@warn 'Invalid breakpoint: #{$breakpoint}.';
 	}
 }
-
-//Respond between breakpoints
+// Respond below breakpoint
+@mixin respond-below($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		$breakpoint-value: map-get($breakpoints, $breakpoint);
+		@media screen and (max-width: ($breakpoint-value - 1)) {
+			@content;
+		}
+	} @else {
+		@warn 'Invalid breakpoint: #{$breakpoint}.';
+	}
+}
+// Respond between breakpoints
 @mixin respond-between($lower, $upper) {
-
 	@if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
-
 		$lower-breakpoint: map-get($breakpoints, $lower);
 		$upper-breakpoint: map-get($breakpoints, $upper);
-
 		@media screen and (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
 			@content;
 		}
-
-	} 
-	@else {
+	} @else {
 		@if (map-has-key($breakpoints, $lower) == false) {
 			@warn 'Your lower breakpoint was invalid: #{$lower}.';
 		}
-
 		@if (map-has-key($breakpoints, $upper) == false) {
 			@warn 'Your upper breakpoint was invalid: #{$upper}.';
 		}
 	}
 }
-
-//****************************************************************************
+// ****************************************************************************
 // Theming
-//****************************************************************************
-
+// ****************************************************************************
 @mixin themeborder($input) {
-   @include theme(border-color, $input);
+	@include theme(border-color, $input);
 }
 @mixin themecolor($input) {
-   @include theme(color, $input);
+	@include theme(color, $input);
 }
 @mixin themebackground($input) {
-   @include theme(background-color, $input);
+	@include theme(background-color, $input);
 }
 @mixin themeoutline($input) {
-   @include theme(outline-color, $input);
+	@include theme(outline-color, $input);
 }
-
 @mixin theme($prop, $color) {
 	@each $theme, $property in $themes {
 		@if map-has-key($property, $color) {
 			.#{$theme} & {
 				#{$prop}: map-get($property, $color);
 			}
-		}
-		@else {
+		} @else {
 			@warn 'Invalid color mapping.';
 		}
 	}
 }
-
-//****************************************************************************
+// ****************************************************************************
 // causal Mixins
-//****************************************************************************
-
+// ****************************************************************************
 @mixin input-placeholder {
-	&.placeholder { @content; }
-	&:-moz-placeholder { @content; }
-	&::-moz-placeholder { @content; }
-	&:-ms-input-placeholder { @content; }
-	&::-webkit-input-placeholder { @content; }
-}
+	&.placeholder {
+		@content;
+	}
 
-@mixin size($size){
-	width: $size;
+	&:-moz-placeholder {
+		@content;
+	}
+
+	&::-moz-placeholder {
+		@content;
+	}
+
+	&:-ms-input-placeholder {
+		@content;
+	}
+
+	&::-webkit-input-placeholder {
+		@content;
+	}
+}
+@mixin size($size) {
 	height: $size;
+	width: $size;
 }
+@mixin flex-cell($grow, $shrink, $basis) {
+	flex: $grow $shrink $basis;
+	padding: 0.34rem;
 
-@mixin flex-cell($grow, $shrink, $basis)  {
-	padding: .34rem;
-   flex: $grow $shrink $basis;
-   
-   &.centered {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-   }
+	&.centered {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
 }
-
 @mixin flex-row {
 	display: flex;
-   flex-direction: row;
+	flex-direction: row;
 }
-
 @mixin flex-column {
 	display: flex;
-   flex-direction: column;
-} 
-
+	flex-direction: column;
+}
 @mixin flex-center {
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 }
-
 @mixin focusEffect {
-	box-shadow: 0 0 .35rem $black;
-	outline: .1rem solid $main;
-	@include themeoutline(main);	
-	
+	@include themeoutline(main);
+	box-shadow: 0 0 0.35rem $black;
+	outline: 0.1rem solid $main;
+
 	&:hover {
 		box-shadow: none;
 		outline: none;

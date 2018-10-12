@@ -1,0 +1,254 @@
+@charset "UTF-8";
+@import 'shared';
+
+//****************************************************************************
+// Utility | generic utility classes
+//****************************************************************************
+
+.flex-center {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.flex-page-center {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: center;
+	width: 100%;
+}
+
+.row-flex {
+	display: flex;
+	flex-direction: row;
+
+	&.center {
+		justify-content: center;
+	}
+
+	&.spaced {
+		justify-content: space-between;
+	}
+
+	&.center-all {
+		align-items: center;
+		justify-content: center;
+	}
+
+	&.align {
+		align-items: center;
+	}
+}
+
+.hidden {
+	display: none !important;
+}
+
+.row-spacing {
+	@extend %clearfix;
+	margin-bottom: 0.9rem;
+}
+
+//****************************************************************************
+// Utility | Text styles
+//****************************************************************************
+
+$tagColorPublic: rgb(17, 104, 17);
+$tagColorShared: rgb(13, 109, 109);
+$tagColorPrivate: rgb(61, 52, 150);
+
+@mixin activeColorTag($color) {
+	background-color: $color;
+
+	border-radius: $globalRadius;
+	color: $grayLight;
+	cursor: pointer;
+	font-weight: 600;
+	padding: 0.2rem 0.5rem;
+	transition: color 0.15s;
+	user-select: none;
+
+	&:hover {
+		color: adjust-hue($color: $color, $degrees: -25%);
+	}
+}
+
+@mixin activeBgTag($color) {
+	background-color: $color;
+	transition: background-color 0.15;
+
+	&:hover {
+		background-color: darken($color, 20%);
+	}
+}
+
+// interactive (textcolor)
+.tag--link {
+	@include activeColorTag($link);
+}
+
+.interactable {
+	@include activeColorTag($grayBlack);
+}
+
+.tag--public {
+	@include activeColorTag($tagColorPublic);
+}
+
+.tag--private {
+	@include activeColorTag($tagColorPrivate);
+}
+
+.tag--shared {
+	@include activeColorTag($tagColorShared);
+}
+
+.tag--interactive {
+	@include activeColorTag($link);
+}
+
+// plain bg
+.generic--bg--private {
+	@include activeBgTag($tagColorPrivate);
+}
+
+.generic--bg--public {
+	@include activeBgTag($tagColorPublic);
+}
+
+.generic--bg--shared {
+	@include activeBgTag($tagColorShared);
+}
+
+.tag--bg--interactive {
+	@include activeBgTag($link);
+}
+
+// plain color
+.generic--warning {
+	color: $warnColor;
+	font-weight: 700;
+}
+
+.generic--error {
+	color: $warnColor;
+	font-weight: 700;
+}
+
+.generic--info {
+	color: $infoColor;
+}
+
+.generic--public {
+	color: $tagColorPublic;
+}
+
+.generic--shared {
+	color: $tagColorShared;
+}
+
+.generic--private {
+	color: $tagColorPrivate;
+}
+
+//****************************************************************************
+// Utilities | Spacing elements
+//****************************************************************************
+
+// line - spacings
+.line-thin {
+	@include themeborder(main);
+	border-bottom: 0.1rem solid $main;
+	display: block;
+	height: 0.1rem;
+	margin: 0.7rem 0;
+}
+
+.line-thick {
+	@include themeborder(main);
+	border-bottom: 0.3rem solid $main;
+	display: block;
+	height: 0.2rem;
+	margin: 0.7rem 0;
+}
+
+// empty space - spacings
+.spacing {
+	@extend %clearfix;
+	display: block;
+	height: 0.1rem;
+	margin-bottom: 0.8rem;
+
+	&.lg {
+		margin-bottom: 1.6rem;
+	}
+
+	&.xl {
+		margin-bottom: 3rem;
+	}
+}
+
+//****************************************************************************
+// Utility | Content Wrappers
+//****************************************************************************
+
+@mixin content($maxWidth) {
+	margin: 0 auto;
+	max-width: $maxWidth;
+	padding: 3rem;
+	transition: padding 0.2s;
+
+	@include respond-below(sm) {
+		padding: 2rem;
+	}
+	@include respond-below(xs) {
+		padding: 1rem;
+	}
+}
+
+.content--full {
+	@include content(100%);
+}
+
+.content--xl {
+	@include content(74rem);
+}
+
+.content--lg {
+	@include content(56rem);
+}
+
+.content--md {
+	@include content(40rem);
+}
+
+.content--sm {
+	@include content(30rem);
+}
+
+//*************************************************************************************************
+// Utility | Content Limiter (restrict width)
+//*************************************************************************************************
+
+@mixin limiter($maxWidth) {
+	max-width: $maxWidth;
+}
+
+.limiter--xl {
+	@include limiter(79rem);
+}
+
+.limiter--lg {
+	@include limiter(65rem);
+}
+
+.limiter--md {
+	@include limiter(42rem);
+}
+
+.limiter--sm {
+	@include limiter(32rem);
+}

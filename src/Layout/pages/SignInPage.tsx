@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Heading, TextInputResponsive } from 'Common/Index';
+import { Heading, TextInputField } from 'Common/Index';
 
 export interface IProps {
 	name?: string;
@@ -20,9 +20,9 @@ export class SignIn extends React.Component<IProps> {
 		return (
 			<div>
 				<Heading headingText="Sign In" />
-				<TextInputResponsive id={'nom'} name={'nom'} label={'Password'} value={''} />
-				<TextInputResponsive id={'nom'} name={'nom'} label={'Password'} value={''} />
-				<TextInputResponsive id={'nom'} name={'nom'} label={'Password'} value={''} />
+				<TextInputField id={'nom'} name={'nom'} label={'Password'} value={''} />
+				<TextInputField id={'nom'} name={'nom'} label={'Password'} value={''} />
+				<TextInputField id={'nom'} name={'nom'} label={'Password'} value={''} />
 			</div>
 		);
 	}

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | Textarea
+//****************************************************************************
+
+.themetextarea {
+	@include themecolor(grayLight);
+	@include themeborder(grayMedium);
+	background: none;
+	border: 0;
+	color: $grayLight;
+	font-size: 1rem;
+	max-height: 30rem;
+	min-height: 4rem;
+	padding: 0.5rem;
+	resize: vertical;
+	width: 100%;
+}
+
+.themetextarea--wrapper {
+	margin-bottom: 0.5rem;
+}
+
+.themetextarea--label {
+	display: block;
+}
+
+.themetextarea--content {
+	display: flex;
+}

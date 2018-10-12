@@ -1,0 +1,94 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | Checkbox
+//****************************************************************************
+
+$sliderSize: 1.3rem;
+$sliderBoxSize: 1.3rem;
+
+.themeslider {
+	input[type='checkbox'] {
+		left: -999rem;
+		position: absolute;
+
+		&:focus + label {
+			@include focusEffect;
+		}
+
+		&:disabled + label {
+			color: lighten($black, 80%);
+			cursor: default;
+
+			&::before {
+				background-color: lighten($black, 40%);
+				border: 0.15rem solid lighten($black, 40%);
+			}
+
+			&::after {
+				background-color: lighten($black, 80%);
+				color: lighten($black, 80%);
+			}
+		}
+	}
+
+	[type='checkbox'] + label {
+		@extend %radioCheckboxSharedProperties;
+		min-height: 1.8rem;
+		padding: 0.35rem 0.35rem 0.35rem 4.7rem;
+
+		&:hover {
+			@include themebackground(grayBlack);
+			background-color: $grayBlack;
+		}
+
+		//background
+		&::before {
+			@include themeborder(grayMedium);
+			@include themebackground(grayBlack);
+			background-color: $grayBlack;
+			border: 0.2rem solid $grayMedium;
+			border-radius: $sliderBoxSize;
+			box-shadow: $globalShadow;
+			content: '';
+			height: $sliderBoxSize;
+			left: 0.45rem;
+			position: absolute;
+			transition: background-color 0.2s;
+			width: $sliderBoxSize * 2;
+		}
+
+		//slidebutton
+		&::after {
+			@include themebackground(tertiary);
+			background-color: $tertiary;
+			border-radius: $sliderSize;
+			content: '';
+			font-size: 1.5rem;
+			height: $sliderSize;
+			position: absolute;
+			transition: left 0.2s, background-color 0.2s;
+			width: $sliderSize;
+		}
+	}
+
+	[type='checkbox']:not(:checked) + label::after {
+		left: 0.65rem;
+	}
+
+	[type='checkbox']:checked + label {
+		&::after {
+			@include themebackground(tertiary);
+			background-color: $tertiary;
+			left: $sliderBoxSize + 0.55rem;
+		}
+
+		&::before {
+			@include themebackground(main);
+			@include themeborder(main);
+			background-color: $main;
+			border-color: $main;
+		}
+	}
+}

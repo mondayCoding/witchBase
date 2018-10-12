@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Field } from 'Common/Field';
+import { Field } from 'Common/Field/Field';
 import classNames from 'classnames';
+import './TextInputField.scss';
 
-export const TextInputResponsive: React.SFC<IProps> = ({
+export const TextInputField: React.SFC<IProps> = ({
 	id,
 	label,
 	error,

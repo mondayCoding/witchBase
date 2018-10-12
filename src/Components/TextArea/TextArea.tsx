@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tooltip from './Infotip';
+import './TextArea.scss';
 
 export interface IProps {
 	id?: string;
@@ -18,18 +18,15 @@ export interface IProps {
 	onKeyUp?(params?: any): void;
 }
 
-const TextArea: React.SFC<IProps> = ({ id, label, tooltip, ...rest }) => {
+export const TextArea: React.SFC<IProps> = ({ id, label, tooltip, ...rest }) => {
 	return (
 		<div className={'themetextarea--wrapper'}>
 			<label className="themetextarea--label" htmlFor={id}>
 				{label}
 			</label>
 			<div className="themetextarea--content">
-				<textarea className="themetextarea" id={id} data-role="none" {...rest} />
-				{tooltip && <div className="themetextarea--content--tooltip">{Tooltip(tooltip)}</div>}
+				<textarea className="themetextarea" id={id} {...rest} />
 			</div>
 		</div>
 	);
 };
-
-export default TextArea;

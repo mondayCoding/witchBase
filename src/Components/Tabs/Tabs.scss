@@ -1,0 +1,51 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | Tabs
+//****************************************************************************
+
+.tabs {
+	.tab-titles {
+		border-bottom: 0.1rem solid $main;
+
+		.tab-title {
+			background-color: transparentize($color: $grayDark, $amount: 0.5);
+			border: 0.1rem solid $grayMedium;
+			color: $grayLight;
+			font-size: 1rem;
+			padding: 0.2rem 0.65rem;
+			transition: background-color 0.2s;
+
+			+ .tab-title {
+				margin-left: 0.5rem;
+			}
+
+			&.active {
+				color: $main;
+			}
+
+			&:hover {
+				background-color: $main;
+				box-shadow: $globalShadow;
+				color: $white;
+			}
+
+			&:focus {
+				@include focusEffect();
+			}
+
+			&:last-child {
+				border-top-right-radius: 0.5rem;
+			}
+
+			&:first-child {
+				border-top-left-radius: 0.5rem;
+			}
+		}
+	}
+
+	.tab-content {
+		padding: 1rem;
+	}
+}

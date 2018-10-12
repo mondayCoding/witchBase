@@ -1,0 +1,106 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | Modal
+//****************************************************************************
+
+$modalCloseBtnSize: 2rem;
+
+.fade--backdrop {
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.75);
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	transition: 0.5 background-color;
+	z-index: 999;
+
+	// MODAL
+
+	.thememodal {
+		@include flex-column;
+		@include themeborder(main);
+		align-self: flex-start;
+		background-color: $grayDarkAlt;
+		border: 0.4rem solid $main;
+		border-radius: $globalRadius;
+		box-shadow: 0 0 0.5rem $grayBlack;
+		margin: 1rem;
+		margin-top: 5%;
+		min-height: 11rem;
+		padding: 1rem;
+		position: relative;
+		width: 100%;
+
+		&.xl {
+			max-width: 58rem;
+		}
+
+		&.lg {
+			max-width: 50rem;
+		}
+
+		&.md {
+			max-width: 40rem;
+		}
+
+		&.sm {
+			max-width: 30rem;
+		}
+
+		.close-button {
+			@include size($modalCloseBtnSize);
+			border-radius: 100%;
+			position: absolute;
+			right: -($modalCloseBtnSize/2);
+			top: -($modalCloseBtnSize/2);
+		}
+
+		.thememodal--heading .themeheading {
+			font-size: 1.5rem;
+			font-weight: 700;
+			margin: 0.8rem;
+			text-align: center;
+		}
+
+		.thememodal--content {
+			@include flex-column;
+			flex: 1 1 auto;
+
+			.thememodal--fill {
+				flex: 1 1 auto;
+			}
+		}
+	}
+
+	// CONFIRMATION
+	&.confirmPopUp {
+		@include flex-center();
+
+		.thememodal {
+			align-self: center;
+			margin: none;
+			max-width: 25rem;
+			min-height: 10rem;
+			width: 25rem;
+
+			.thememodal--content {
+				text-align: center;
+
+				.thememodal--fill {
+					@include flex-column;
+					justify-content: center;
+				}
+			}
+		}
+	}
+}
+
+body.modalIsOpen {
+	overflow-y: hidden;
+}

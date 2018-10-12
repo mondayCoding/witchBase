@@ -1,0 +1,76 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | heading with variants
+//****************************************************************************
+
+.themeheading {
+	color: $main;
+	display: block;
+
+	> .icon {
+		margin-right: 0.5rem;
+	}
+
+	&.xs {
+		font-size: 1rem;
+	}
+
+	&.sm {
+		font-size: 1.25rem;
+	}
+
+	&.md {
+		font-size: 1.5rem;
+	}
+
+	&.lg {
+		font-size: 2rem;
+	}
+
+	&.xl {
+		font-size: 2, 5rem;
+	}
+
+	&.padded {
+		padding: 0.5rem;
+	}
+
+	&.inline {
+		display: inline;
+		margin: 0;
+	}
+
+	&.negative {
+		background-color: $grayDark;
+		color: $grayLight;
+	}
+
+	&.spacing-above {
+		margin-top: 1rem;
+	}
+
+	&.underlined {
+		border-bottom: 0.1rem solid $main;
+		margin-bottom: 0.5rem;
+		padding-bottom: 0.5rem;
+	}
+}
+
+// heading size
+h2.themeheading {
+	font-size: 1.5rem;
+}
+
+h3.themeheading {
+	font-size: 1.15rem;
+}
+
+h4.themeheading {
+	font-size: 1rem;
+}
+
+h5.themeheading {
+	font-size: 0.95rem;
+}

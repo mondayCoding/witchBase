@@ -1,0 +1,98 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | Text input -> Material
+//****************************************************************************
+
+$maxFieldWidth: 30rem;
+
+.themeinput--material {
+	margin: 1rem 0 0.5rem;
+	max-width: $maxFieldWidth;
+	position: relative;
+
+	input {
+		@include themecolor(grayLight);
+		@include themeborder(grayMedium);
+		background: none;
+		border: 0;
+		border-bottom: 0.1rem solid $grayMedium;
+		color: $grayLight;
+		display: block;
+		font-size: 1rem;
+		outline: none;
+		padding: 0.35rem;
+		width: 100%;
+	}
+
+	input:focus {
+		outline: none;
+	}
+
+	label {
+		@include themecolor(grayMedium);
+		color: $grayMedium;
+		font-size: 0.9rem;
+		font-weight: normal;
+		left: 0.35rem;
+		pointer-events: none;
+		position: absolute;
+		top: 0.7rem;
+		transition: 0.2s ease all;
+	}
+
+	input:focus + label,
+	&.hasContent input + label {
+		@include themecolor(main);
+		color: $main;
+		font-size: 0.8rem;
+		top: -0.7rem;
+	}
+
+	&.hasError > input {
+		border-color: $errorColor;
+
+		& + label {
+			border: $errorColor;
+			color: $errorColor;
+			font-weight: 900;
+
+			& + .bar::before {
+				background: $errorColor;
+			}
+		}
+	}
+
+	&.isDisabled {
+		@extend %disabled;
+	}
+
+	.bar {
+		display: block;
+		max-width: 100%;
+		position: relative;
+		width: 100%;
+	}
+
+	.bar::before {
+		@include themebackground(main);
+		background-color: $main;
+		bottom: 0;
+		content: '';
+		height: 0.15rem;
+		left: 0;
+		position: absolute;
+		transition: 0.15s ease all;
+		width: 0;
+	}
+
+	/* active state */
+	input:focus ~ .bar::before {
+		width: 100%;
+	}
+
+	input:required {
+		box-shadow: none;
+	}
+}

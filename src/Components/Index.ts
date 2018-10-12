@@ -1,37 +1,33 @@
-import Button from 'Common/Button';
-import Checkbox from 'Common/Checkbox';
-import CheckboxSlider from 'Common/CheckboxSlider';
-import Radiobutton from 'Common/Radiobutton';
-import Infotip from 'Common/Infotip';
-import Icons from '../UtilsUI/Icons';
-import Modal from 'Common/Modal';
-import TextArea from 'Common/TextArea';
-import {TextAreaResponsive} from 'Common/TextAreaField';
-import TextInputMaterial from 'Common/TextinputMaterial';
-import TextinputPlain from 'Common/TextinputPlain';
-import {TextInputResponsive} from 'Common/TextinputField';
-import SimpleTooltip from 'Common/SimpleTooltip';
-import Tab from 'Common/Tab';
-import Tabs from 'Common/Tabs';
-import Heading from 'Common/Heading';
-import {Field} from 'Common/Field';
+import { Button } from 'Common/Button/Button';
+import { Checkbox } from 'Common/Checkbox/Checkbox';
+import { SliderCheckbox } from 'Common/Checkbox/CheckboxSlider';
+import { Radiobox } from 'Common/Checkbox/Radiobox';
+import { Icons } from '../UtilsUI/Icons';
+import { Modal } from 'Common/Modal/Modal';
+import { TextArea } from 'Common/TextArea/TextArea';
+import { TextAreaResponsive } from 'Common/TextArea/TextAreaField';
+import { TextInputMaterial } from 'Common/TextInput/TextinputMaterial';
+import { TextInputField } from 'Common/TextInput/TextinputField';
+import { Tooltip } from 'Common/Utility/Tooltip';
+import { Tab } from 'Common/Tabs/Tab';
+import { Tabs } from 'Common/Tabs/Tabs';
+import { Heading } from 'Common/TextElements/Heading';
+import { Field } from 'Common/Field/Field';
 
 export {
-   Button,
-   Checkbox,
-   CheckboxSlider,
-   Radiobutton,
-   Infotip,
-   Icons,
-   Modal,
-   TextArea,
-   TextAreaResponsive,
-   TextInputMaterial,
-   TextinputPlain,
-   TextInputResponsive,
-   SimpleTooltip,
-   Tab,
-   Tabs,
-   Heading,
-   Field
+	Button,
+	Checkbox,
+	SliderCheckbox,
+	Radiobox,
+	Icons,
+	Modal,
+	TextArea,
+	TextAreaResponsive,
+	TextInputMaterial,
+	TextInputField,
+	Tooltip,
+	Tab,
+	Tabs,
+	Heading,
+	Field
 };

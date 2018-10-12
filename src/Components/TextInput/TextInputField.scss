@@ -1,0 +1,37 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | TextInput
+//****************************************************************************
+
+$inputFontSize: 1rem;
+
+.themeinput {
+	background: none;
+	color: $grayLight;
+	display: flex;
+	flex: 1 1 auto;
+	font-size: $globalFontSize;
+	outline: none;
+	padding: 0.35rem 0.5rem;
+	position: relative;
+	width: 100%;
+
+	&:focus {
+		@include focusEffect();
+	}
+
+	.isNumeric & {
+		max-width: 10rem;
+		text-align: right;
+	}
+
+	.hasError & {
+		background-color: transparentize($color: $errorColor, $amount: 0.2);
+	}
+
+	.isDisabled & {
+		@extend %disabled;
+	}
+}

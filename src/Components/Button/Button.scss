@@ -1,0 +1,74 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | Button
+//****************************************************************************
+
+.themebutton {
+	@include themebackground(main);
+	background-color: $main;
+	border: 0.15rem solid transparent;
+	box-shadow: $globalShadow;
+	color: #fff;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: 1.2;
+	min-height: 1.8rem;
+	min-width: 6rem;
+	padding: 0.2rem 0.35rem;
+	text-align: center;
+	transition: background-color 0.2s;
+	width: auto;
+
+	&:hover {
+		@include themebackground(grayBlack);
+		@include themecolor(white);
+		background-color: $black;
+		color: $white;
+	}
+
+	&:focus {
+		@include focusEffect;
+		@include themeborder(white);
+		border: 0.15rem solid $white;
+
+		&::-moz-focus-inner {
+			border: 0;
+		}
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		filter: grayscale(90%);
+		opacity: 0.7;
+		pointer-events: none;
+	}
+
+	&.rounded {
+		border-radius: 1rem;
+	}
+
+	&.dark {
+		background-color: $grayBlack;
+	}
+
+	&.uppercase {
+		text-transform: uppercase;
+	}
+
+	&.wide {
+		display: block;
+		width: 100%;
+	}
+
+	// space between if repeated buttons
+	+ .themebutton {
+		margin-left: 0.5rem;
+	}
+
+	// space if icon and text used together
+	> span:nth-child(2) {
+		margin-left: 0.5rem;
+	}
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tooltip from 'Common/Infotip';
+import './TextAreaField.scss';
 import { Field } from 'Common/Index';
 
 export interface IProps {
@@ -22,9 +22,8 @@ export interface IProps {
 
 export const TextAreaResponsive: React.SFC<IProps> = ({ id, label, tooltip, ...rest }) => {
 	return (
-		<Field id={id} label={label}>
-			<textarea className="themetextarea" id={id} data-role="none" {...rest} />
-			{tooltip && <div className="themetextarea--tooltip">{Tooltip(tooltip)}</div>}
+		<Field id={id} label={label} tooltip={tooltip}>
+			<textarea className="themetextarea" id={id} {...rest} />
 		</Field>
 	);
 };

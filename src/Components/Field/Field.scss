@@ -1,0 +1,76 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//*************************************************************************************************
+// Component | Responsive Field (wrapper)
+//*************************************************************************************************
+
+$label-width: 10rem;
+$numeric-width: 10rem;
+
+.themefield {
+	border: 0.1rem solid transparentize($color: $black, $amount: 0.5);
+	border-radius: $globalRadius;
+	display: flex;
+	flex-direction: row;
+	font-size: $globalFontSize;
+	margin-bottom: 0.5rem;
+
+	@include respond-below(sm) {
+		flex-direction: column;
+
+		.themefield--label {
+			// important tags are sad but necessary
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius: $globalRadius !important;
+			border-top-right-radius: $globalRadius !important;
+			flex: 0 0 auto !important;
+		}
+	}
+
+	.themefield--label {
+		align-items: center;
+		background-color: transparentize($color: $black, $amount: 0.7);
+		border-bottom-left-radius: $globalRadius;
+		border-top-left-radius: $globalRadius;
+		color: $grayLight;
+		cursor: pointer;
+		display: flex;
+		flex: 0 0 $label-width;
+		font-weight: 500;
+		padding: 0 0.3rem;
+		padding-right: 0.5rem;
+		text-align: left;
+	}
+
+	.themefield--content {
+		display: flex;
+		flex: 1 1 auto;
+	}
+
+	&.isNumeric {
+		max-width: $numeric-width + $label-width;
+	}
+
+	&.isDisabled {
+		@extend %disabled;
+	}
+
+	&.hasError {
+		color: $errorColor;
+		font-weight: 700;
+		margin-bottom: 0;
+
+		+ .themefield--error {
+			color: $errorColor;
+			font-weight: 700;
+			margin-bottom: 0.5rem;
+			margin-left: ($label-width + 0.5rem - 0.2rem);
+			padding: 0.2rem;
+
+			@include respond-below(sm) {
+				margin-left: 0;
+			}
+		}
+	}
+}

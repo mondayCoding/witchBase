@@ -12,5 +12,11 @@
 		"selector-no-qualifying-type": null,
 		"selector-class-pattern": null,
 		"selector-max-compound-selectors": 5
-	}
+	},
+	"packages--vscode--and--prettify": [
+		"stylelint",
+		"stylelint-config-sass-guidelines",
+		"stylelint-order",
+		"stylelint-scss"
+	]
 }

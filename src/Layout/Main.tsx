@@ -24,7 +24,7 @@ export default class Main extends React.Component {
 
 	render() {
 		return (
-			<React.Fragment>
+			<main className="main">
 				{!this.state.hasError ? (
 					<Switch>
 						<div className="content--md">
@@ -42,7 +42,7 @@ export default class Main extends React.Component {
 						<h2>Something Broke ;(</h2>
 					</section>
 				)}
-			</React.Fragment>
+			</main>
 		);
 	}
 }

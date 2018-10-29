@@ -7,6 +7,7 @@ import { Modal } from 'Common/Modal/Modal';
 import { TextArea } from 'Common/TextArea/TextArea';
 import { TextAreaResponsive } from 'Common/TextArea/TextAreaField';
 import { TextInputMaterial } from 'Common/TextInput/TextinputMaterial';
+import { TextInput } from 'Common/TextInput/TextinputSimple';
 import { TextInputField } from 'Common/TextInput/TextinputField';
 import { Tooltip } from 'Common/Utility/Tooltip';
 import { Tab } from 'Common/Tabs/Tab';
@@ -29,5 +30,6 @@ export {
 	Tab,
 	Tabs,
 	Heading,
-	Field
+	Field,
+	TextInput
 };

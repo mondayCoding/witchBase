@@ -1,0 +1,55 @@
+@charset "UTF-8";
+@import '../../Styles/shared';
+
+//****************************************************************************
+// Component | Text input -> themeinput simple
+//****************************************************************************
+
+.themeinput--simple {
+	border: 0.1rem solid $main;
+	border-radius: $globalRadius;
+	box-shadow: $globalShadowInset;
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+	position: relative;
+
+	&.hasError {
+		border-color: $errorColor;
+
+		> .bar::before {
+			background-color: $errorColor;
+		}
+	}
+
+	&.isDisabled {
+		@extend %disabled;
+	}
+
+	.bar {
+		display: block;
+		max-width: 100%;
+		position: relative;
+		width: 100%;
+	}
+
+	.bar::before {
+		background-color: $main;
+		bottom: 0;
+		content: '';
+		height: 0.15rem;
+		left: 0;
+		position: absolute;
+		transition: 0.15s ease all;
+		width: 0;
+	}
+
+	/* active state */
+	input:focus ~ .bar::before {
+		width: 100%;
+	}
+
+	.row-flex & + .themeinput--simple {
+		margin-left: 1rem;
+	}
+}

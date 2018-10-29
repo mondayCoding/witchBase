@@ -1,24 +1,19 @@
 import * as React from 'react';
-import { SelectBase } from 'react-select';
-import { Field } from 'Common/Field/Field';
-import { OptionsType } from 'react-select/lib/types';
+import ReactSelect from 'react-select';
+import { Props as reactSelectProps } from 'react-select/lib/Select';
 
-export const Select: React.SFC<IProps> = ({ id, label, responsive, ...rest }) => {
-	responsive = responsive || true;
+export const Select: React.SFC<IProps> = (props) => <ReactSelect {...props} />;
 
-	return (
-		<Field label={label} id={id}>
-			<SelectBase id={id} {...rest} />
-		</Field>
-	);
-};
-
-export interface IProps extends OptionsType<any> {
-	id: string;
+interface IOptionType {
 	label: string;
-	value?: string;
-	responsive?: boolean;
+	value: string;
+}
+
+export interface IProps extends reactSelectProps<any> {
+	id?: string;
+	label?: string;
 	placeholder?: string;
+	tooltip?: string;
 	checked?: boolean;
 	required?: boolean;
 	disabled?: boolean;

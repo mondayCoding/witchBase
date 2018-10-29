@@ -10,6 +10,7 @@ export const TextInputField: React.SFC<IProps> = ({
 	isSmall,
 	tooltip,
 	disabled,
+	title,
 	...rest
 }) => {
 	const classString = classNames({
@@ -29,7 +30,14 @@ export const TextInputField: React.SFC<IProps> = ({
 			isSmall={isSmall}
 			disabled={disabled}
 		>
-			<input className={classString} id={id} disabled={disabled} type="text" {...rest} />
+			<input
+				className={classString}
+				title={title}
+				id={id}
+				disabled={disabled}
+				type="text"
+				{...rest}
+			/>
 		</Field>
 	);
 };
@@ -37,12 +45,14 @@ export const TextInputField: React.SFC<IProps> = ({
 export interface IProps {
 	id: string;
 	name: string;
+	title?: any;
 	label: string;
 	value: string;
 	placeholder?: string;
 	readonly?: boolean;
 	required?: boolean;
 	disabled?: boolean;
+	pattern?: any;
 	isSmall?: boolean;
 	type?: string;
 	tooltip?: string;

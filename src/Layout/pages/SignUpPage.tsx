@@ -3,21 +3,21 @@ import { Heading, TextInputField, TextInputMaterial } from 'Common/Index';
 import { auth } from '../../Firebase';
 
 class State {
-	email: string = '';
-	passwordOne: string = '';
-	passwordTwo: string = '';
+	readonly email: string = '';
+	readonly passwordOne: string = '';
+	readonly passwordTwo: string = '';
+	readonly total: number;
 }
-
-const byPropKey = (propertyName: any, value: string) => () => ({
-	[propertyName]: value
-});
 
 export class SignUp extends React.Component<object, State> {
 	state = new State();
 
 	handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		this.setState({ [name]: value } as Pick<State, keyof State>);
+		const newState = { [e.target.name]: e.target.value };
+		this.setState((prevState) => ({
+			...this.state,
+			...newState
+		}));
 	};
 
 	handleKeyUp = (e: React.KeyboardEvent) => {
@@ -30,13 +30,13 @@ export class SignUp extends React.Component<object, State> {
 		const { passwordOne, passwordTwo, email } = this.state;
 
 		return (
-			<div>
+			<div className="content--md">
 				<Heading headingText="Sign Up" className="underlined" />
 
 				<TextInputMaterial
 					id={'pass'}
 					name={'email'}
-					label={'Password'}
+					label={'Email'}
 					value={email}
 					onChange={this.handleOnChange}
 				/>

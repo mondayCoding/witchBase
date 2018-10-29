@@ -149,6 +149,92 @@
 //******************************************************************************************************************************************************
 
 //****************************************************************************
+// React Transition
+//****************************************************************************
+
+.nom-entering,
+.nom-exited,
+.nom-entered,
+.nom-leaving, 
+.entering,
+// .exited,
+.entered,
+.leaving {
+	animation: listItemEnterBorderFlash 2.5s;
+	animation-iteration-count: once;
+}
+
+// .rt-tr-group {
+// 	animation: listItemEnterBorderFlash 2.5s;
+// 	animation-iteration-count: once;
+// }
+
+@keyframes listItemEnterBorderFlash {
+	0% {
+		border-color: $main;
+		color: $main;
+		opacity: 0;
+		outline: 0.2rem solid $main;
+	}
+
+	100% {
+		border-color: $grayLight;
+		color: $grayLight;
+		opacity: 1;
+		outline: 0.2rem solid transparent;
+	}
+}
+
+//****************************************************************************
+// Plugin (style overwrite) | React-Table
+//****************************************************************************
+
+.ReactTable {
+	border: 0.1rem solid transparentize($color: $grayBlack, $amount: 0.5);
+	border-radius: $globalRadius;
+	box-shadow: $globalShadow;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0.75rem;
+
+	.rt-tbody {
+		border: 0.1rem solid transparentize($color: $grayBlack, $amount: 0.5);
+		border-radius: $globalRadius;
+
+		.rt-tr-group {
+			background-color: $grayDarkAlt;
+			border: 0.1rem solid transparentize($color: $grayBlack, $amount: 0.5);
+			border-bottom: 0.1rem solid $grayBlack;
+			position: relative;
+			transition: background-color 0.2s ease-in-out;
+
+			.rt-td:not(:last-child) {
+				border-right: 0.1rem solid $grayBlack;
+			}
+
+			&:hover,
+			&:nth-child(odd):hover {
+				background-color: desaturate(adjust-hue(mix($grayBlack, $main, 20%), 40%), 30%);
+			}
+
+			&:nth-child(odd) {
+				background-color: $grayDark;
+			}
+
+			&:first-child {
+				border-top-left-radius: $globalRadius;
+				border-top-right-radius: $globalRadius;
+			}
+
+			&:last-child {
+				border-bottom-left-radius: $globalRadius;
+				border-bottom-right-radius: $globalRadius;
+			}
+		}
+	}
+}
+
+//****************************************************************************
 // Plugin (style overwrite) | React-Select
 //****************************************************************************
 

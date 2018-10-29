@@ -6,9 +6,9 @@ export interface IProps {
 	name?: string;
 }
 
-export const TempPage: React.SFC<IProps> = (props) => {
+export const BudjetCalculatorPage: React.SFC<IProps> = (props) => {
 	return (
-		<div>
+		<div className="content--xxl">
 			<Heading headingText="Sample heading" />
 			<BudjetCalculator />
 		</div>

@@ -18,7 +18,7 @@ export interface IProps {
 
 export const TempPageAlt: React.SFC<IProps> = (props) => {
 	return (
-		<div>
+		<div className="content--md">
 			<Heading headingText="Alternate template heading" />
 			<Button buttonText="nom" />
 			<Button buttonText="nom" className="rounded" />

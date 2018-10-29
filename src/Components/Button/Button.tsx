@@ -10,6 +10,7 @@ export interface IProps {
 	buttonText?: string;
 	buttonIcon?: React.ReactNode;
 	type?: string;
+	style?: any;
 	onClick?(params: any): any;
 }
 
@@ -19,6 +20,7 @@ export const Button: React.SFC<IProps> = ({
 	buttonIcon,
 	type,
 	disabled,
+	style,
 	...rest
 }) => {
 	buttonText = buttonText || 'button';
@@ -31,7 +33,7 @@ export const Button: React.SFC<IProps> = ({
 	});
 
 	return (
-		<button type={type} className={classString} {...rest}>
+		<button type={type} style={style} className={classString} {...rest}>
 			{buttonIcon && <span>{buttonIcon}</span>}
 			{buttonText && <span>{buttonText}</span>}
 		</button>

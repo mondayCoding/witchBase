@@ -13,42 +13,67 @@ export default class Navigation extends React.Component {
 					</li>
 
 					<li className="navi-item">
-						<NavLink to={routes.SIGN_IN} activeClassName="active" title="Dashboard">
+						<NavLink
+							to={routes.SIGN_IN}
+							exact={true}
+							activeClassName="active"
+							title="Dashboard"
+						>
 							{navicons.dashboard}
 							<span className="pagename">Sign In</span>
 						</NavLink>
 					</li>
 
 					<li className="navi-item">
-						<NavLink to={routes.SIGN_UP} activeClassName="active" title="Dashboard">
+						<NavLink
+							to={routes.SIGN_UP}
+							exact={true}
+							activeClassName="active"
+							title="Dashboard"
+						>
 							{navicons.dashboard}
 							<span className="pagename">Sign Up</span>
 						</NavLink>
 					</li>
 
 					<li className="navi-item">
-						<NavLink to={routes.LANDING} activeClassName="active" title="Create Character">
+						<NavLink
+							to={routes.LANDING}
+							exact={true}
+							activeClassName="active"
+							title="Create Character"
+						>
 							{navicons.createchar}
 							<span className="pagename">Landing</span>
 						</NavLink>
 					</li>
 
 					<li className="navi-item">
-						<NavLink to={routes.HOME} activeClassName="active" title="Soon™">
+						<NavLink to={routes.HOME} exact={true} activeClassName="active" title="Soon™">
 							{navicons.soon}
 							<span className="pagename">Home™</span>
 						</NavLink>
 					</li>
 
 					<li className="navi-item">
-						<NavLink to={routes.ACCOUNT} activeClassName="active" title="Missions">
+						<NavLink
+							to={routes.ACCOUNT}
+							exact={true}
+							activeClassName="active"
+							title="Missions"
+						>
 							{navicons.missions}
 							<span className="pagename">Account</span>
 						</NavLink>
 					</li>
 
 					<li className="navi-item">
-						<NavLink to={routes.PASSWORD_FORGET} activeClassName="active" title="Missions">
+						<NavLink
+							to={routes.PASSWORD_FORGET}
+							exact={true}
+							activeClassName="active"
+							title="Missions"
+						>
 							{navicons.missions}
 							<span className="pagename">Forgot password</span>
 						</NavLink>

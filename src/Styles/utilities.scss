@@ -154,6 +154,14 @@ $tagColorPrivate: rgb(61, 52, 150);
 	color: $tagColorPrivate;
 }
 
+.generic--income {
+	color: $tagColorShared;
+}
+
+.generic--expense {
+	color: $tagColorPrivate;
+}
+
 //****************************************************************************
 // Utilities | Spacing elements
 //****************************************************************************
@@ -211,6 +219,14 @@ $tagColorPrivate: rgb(61, 52, 150);
 
 .content--full {
 	@include content(100%);
+}
+
+.content--xxxl {
+	@include content(100rem);
+}
+
+.content--xxl {
+	@include content(90rem);
 }
 
 .content--xl {

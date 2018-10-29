@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { TempPage } from './pages/TempPage';
 import { TempPageAlt } from './pages/TempPageAlt';
+import { BudjetCalculatorPage } from './pages/BudjetCalculator';
 import { SignUp } from './pages/SignUpPage';
 import { SignIn } from './pages/SignInPage';
 import * as routes from '../Constants/Routes';
@@ -27,15 +28,13 @@ export default class Main extends React.Component {
 			<main className="main">
 				{!this.state.hasError ? (
 					<Switch>
-						<div className="content--md">
-							<Route exact={true} path={routes.SIGN_IN} component={SignIn} />
-							<Route exact={true} path={routes.SIGN_UP} component={SignUp} />
-							<Route exact={true} path={routes.LANDING} component={TempPage} />
-							<Route exact={true} path={routes.HOME} component={TempPageAlt} />
-							<Route exact={true} path={routes.ACCOUNT} component={SignUp} />
-							<Route exact={true} path={routes.PASSWORD_FORGET} component={TempPageAlt} />
-							<Redirect to="/" />
-						</div>
+						<Route exact={true} path={routes.SIGN_IN} component={SignIn} />
+						<Route exact={true} path={routes.SIGN_UP} component={SignUp} />
+						<Route exact={true} path={routes.LANDING} component={BudjetCalculatorPage} />
+						<Route exact={true} path={routes.HOME} component={TempPageAlt} />
+						<Route exact={true} path={routes.ACCOUNT} component={SignUp} />
+						<Route exact={true} path={routes.PASSWORD_FORGET} component={TempPageAlt} />
+						<Redirect to="/" />
 					</Switch>
 				) : (
 					<section>

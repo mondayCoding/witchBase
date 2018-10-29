@@ -5,8 +5,6 @@
 // Component | TextInput
 //****************************************************************************
 
-$inputFontSize: 1rem;
-
 .themeinput {
 	background: none;
 	color: $grayLight;
@@ -14,7 +12,7 @@ $inputFontSize: 1rem;
 	flex: 1 1 auto;
 	font-size: $globalFontSize;
 	outline: none;
-	padding: 0.35rem 0.5rem;
+	padding: 0.4rem 0.5rem;
 	position: relative;
 	width: 100%;
 
@@ -28,7 +26,11 @@ $inputFontSize: 1rem;
 	}
 
 	.hasError & {
-		background-color: transparentize($color: $errorColor, $amount: 0.2);
+		background-color: transparentize($color: $errorColor, $amount: 0.7);
+
+		&:focus {
+			outline: 0.1rem solid $errorColor;
+		}
 	}
 
 	.isDisabled & {

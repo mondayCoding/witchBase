@@ -3,6 +3,16 @@ import { Tooltip } from 'Common/Utility/Tooltip';
 import classNames from 'classnames';
 import './Field.scss';
 
+export interface IProps {
+	id?: string;
+	label: string;
+	disabled?: boolean;
+	responsive?: boolean;
+	error?: string;
+	isSmall?: boolean;
+	tooltip?: string;
+}
+
 export const Field: React.SFC<IProps> = ({
 	id,
 	label,
@@ -23,7 +33,7 @@ export const Field: React.SFC<IProps> = ({
 		<React.Fragment>
 			<div className={classString}>
 				{tooltip ? (
-					<Tooltip message={tooltip}>
+					<Tooltip content={tooltip}>
 						<label className="themefield--label" htmlFor={id}>
 							<span>{label}</span>
 						</label>
@@ -37,17 +47,7 @@ export const Field: React.SFC<IProps> = ({
 				<div className="themefield--content">{children}</div>
 			</div>
 
-			{error && <div className="themefield--error">{error}</div>}
+			{/* {error && <div className="themefield--error">{error}</div>} */}
 		</React.Fragment>
 	);
 };
-
-export interface IProps {
-	id?: string;
-	label: string;
-	disabled?: boolean;
-	responsive?: boolean;
-	error?: string;
-	isSmall?: boolean;
-	tooltip?: string;
-}

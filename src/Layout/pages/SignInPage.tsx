@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Heading, TextInputField, Button } from 'Common/Index';
-import { Formik, Form, yupToFormErrors } from 'formik';
+import { Heading, TextInputField, Button, TextInput } from 'Common/Index';
+import { Formik, Form, yupToFormErrors, Field } from 'formik';
 import { Select } from 'Common/Select/Select';
 import * as Yup from 'yup';
 
@@ -18,52 +18,30 @@ export class SignIn extends React.Component<object> {
 					initialValues={{
 						password: '',
 						email: '',
-						list: []
+						list: [],
+						required: ['password', 'email']
 					}}
 					validationSchema={Yup.object().shape({
 						email: Yup.string()
 							.email()
 							.required('Required'),
-						password: Yup.string().required()
+						password: Yup.string()
+							.min(6)
+							.required()
 					})}
 					onSubmit={this.handleSubmit}
-					render={({
-						values,
-						handleChange,
-						dirty,
-						handleReset,
-						handleSubmit,
-						setFieldValue,
-						errors,
-						touched
-					}) => (
+					render={({ handleReset, handleSubmit, isValid }) => (
 						<>
-							<TextInputField
-								id={'email_ID'}
-								name={'email'}
-								placeholder="Email"
-								label={'Email'}
-								onChange={handleChange}
-								value={values.email}
-							/>
-							<TextInputField
-								id={'password_ID'}
-								name={'password'}
-								placeholder="Password"
+							<Field name="email" component={Custom} label={'Email'} placeholder={'Email'} />
+							<Field
+								name="password"
+								component={Custom}
 								label={'Password'}
 								type="password"
-								onChange={handleChange}
-								value={values.password}
-								title={errors.email ? errors.email : null}
+								placeholder={'Password'}
 							/>
-							{errors.email && <div className="generic--warning">{errors.email}</div>}
-							{/* <Select
-								isMulti={true}
-								onChange={(option) => setFieldValue('list', option)}
-								options={options}
-							/> */}
 							<Button onClick={handleReset} buttonText="reset" />
-							<Button onClick={handleSubmit} disabled={!dirty} buttonText="submit" />
+							<Button onClick={handleSubmit} disabled={!isValid} buttonText="submit" />
 						</>
 					)}
 				/>
@@ -72,8 +50,24 @@ export class SignIn extends React.Component<object> {
 	}
 }
 
-const options = [
-	{ label: 'sdasasd1', value: 'sdassa2123' },
-	{ label: 'sdasasd2', value: 'sdassa13123123' },
-	{ label: 'sdasasd3', value: 'sdassa212312313' }
-];
+const Custom = ({
+	field, // { name, value, onChange, onBlur }
+	form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+	label,
+	...props
+}: any) => {
+	console.log(label);
+
+	return (
+		<TextInput
+			label={label}
+			id={`field_id_${name}_TID`}
+			{...field}
+			{...props}
+			onChange={field.onChange}
+			value={field.value}
+			error={touched[field.name] && errors[field.name]}
+			title={touched[field.name] && errors[field.name]}
+		/>
+	);
+};

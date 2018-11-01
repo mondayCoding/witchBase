@@ -3,6 +3,26 @@ import { Field } from 'Common/Field/Field';
 import classNames from 'classnames';
 import './TextInputField.scss';
 
+export interface IProps {
+	id: string;
+	name: string;
+	title?: any;
+	label: string;
+	value: string;
+	placeholder?: string;
+	readonly?: boolean;
+	required?: boolean;
+	disabled?: boolean;
+	pattern?: any;
+	isSmall?: boolean;
+	type?: string;
+	tooltip?: string;
+	error?: any;
+	onChange?(params?: any): any;
+	onBlur?(params?: any): any;
+	onKeyUp?(params?: any): any;
+}
+
 export const TextInputField: React.SFC<IProps> = ({
 	id,
 	label,
@@ -41,23 +61,3 @@ export const TextInputField: React.SFC<IProps> = ({
 		</Field>
 	);
 };
-
-export interface IProps {
-	id: string;
-	name: string;
-	title?: any;
-	label: string;
-	value: string;
-	placeholder?: string;
-	readonly?: boolean;
-	required?: boolean;
-	disabled?: boolean;
-	pattern?: any;
-	isSmall?: boolean;
-	type?: string;
-	tooltip?: string;
-	error?: string;
-	onChange?(params?: any): any;
-	onBlur?(params?: any): any;
-	onKeyUp?(params?: any): any;
-}

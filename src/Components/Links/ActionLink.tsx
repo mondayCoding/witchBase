@@ -1,6 +1,5 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import './Actionlink.scss';
 
 export interface IProps {
 	className?: any;

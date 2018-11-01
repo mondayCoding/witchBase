@@ -7,13 +7,19 @@ import 'rc-tooltip/assets/bootstrap_white.css';
 //*****************************************************************************************************************
 
 interface IProps {
-	message: string;
+	content: React.ReactNode;
 }
 
-export const Tooltip: React.SFC<IProps> = (props) => {
+export const Tooltip: React.SFC<IProps> = ({ content, children }) => {
 	return (
-		<Tip placement="top" trigger={['hover']} overlay={<span>{props.message}</span>}>
-			{props.children}
+		<Tip
+			placement="right"
+			mouseEnterDelay={0.1}
+			trigger={['hover']}
+			overlay={<span>{content}</span>}
+			transitionName="rc-tooltip-animate"
+		>
+			{children}
 		</Tip>
 	);
 };

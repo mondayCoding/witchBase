@@ -10,9 +10,10 @@ interface IProps {
 	readonly?: boolean;
 	required?: boolean;
 	disabled?: boolean;
+	title?: any;
 	isSmall?: boolean;
 	type?: string;
-	error?: string;
+	error?: any;
 	onChange?(params?: any): any;
 	onBlur?(params?: any): any;
 	onKeyUp?(params?: any): any;

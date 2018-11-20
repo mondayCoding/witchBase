@@ -1,12 +1,20 @@
 import * as React from 'react';
 import { Heading, TextInputField, TextInput, Button, Icons } from 'Common/Index';
 import { List } from './List';
-import SelectBase from 'react-select';
-import { IOccurrance, Occurance, IEventType, EventType } from 'Constants/Economy';
-import { FormValidation } from 'Utils/FieldRules';
-import { Formik } from 'formik';
+import { Select } from 'Common/Select/Select';
+import { EventType, EventTypeAbstract, EventTypeConstant } from 'Constants/EconomyType';
+import {
+	Occurance,
+	OccurranceAbstract,
+	OccurranceConstant
+} from 'Constants/EconomyOccurrance';
+import { Formik, FieldProps, Field, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { EventForm } from './EventForm';
+import { Toggleable } from 'Common/Utility/Toggleable';
+import { SlideDown } from 'react-slidedown';
+import 'react-slidedown/lib/slidedown.css';
+import { database } from 'Firebase/index';
 
 export interface IOption {
 	label: string;
@@ -16,23 +24,23 @@ export interface IOption {
 interface IEventParams {
 	name: string;
 	value: string;
-	repeat: IOccurrance;
-	type: IEventType;
+	type: EventTypeConstant;
+	repeat: OccurranceConstant;
 }
 
 export class EconomyEvent {
 	readonly name: string = '';
 	readonly id: number = 0;
 	readonly value: number = 0;
-	readonly type: IEventType;
-	readonly repeat: IOccurrance;
+	readonly type: EventTypeConstant;
+	readonly repeat: OccurranceConstant;
 
 	constructor(
 		id: number,
 		name: string = 'new item',
 		value: number,
-		repeat: IOccurrance = Occurance.annual,
-		type: IEventType = EventType.expense
+		type: EventTypeConstant,
+		repeat: OccurranceConstant
 	) {
 		this.id = id;
 		this.name = name;
@@ -44,11 +52,6 @@ export class EconomyEvent {
 
 class State {
 	readonly eventList: EconomyEvent[] = [];
-	readonly total: number;
-	readonly value: string = '';
-	readonly name: string = '';
-	readonly type?: IEventType;
-	readonly repeat?: IOccurrance;
 	readonly selectedEvent: number | null = null;
 }
 
@@ -57,18 +60,15 @@ export class BudjetCalculator extends React.Component<object, State> {
 
 	componentDidMount = () => {
 		this.setState({ eventList: EventList });
-	};
-
-	onKeyUp = (e: React.KeyboardEvent) => {
-		if (e.keyCode === 13) {
-			if (this.state.name.length > 2 && this.state.value.length > 2) {
-				const id = Math.random();
-				const item = new EconomyEvent(id, this.state.name, parseFloat(this.state.value));
-				this.AddNewItem(item);
-			} else {
-				console.log('Data is not valid');
-			}
-		}
+		database
+			.collection('events')
+			.get()
+			.then((collection) =>
+				collection.docs.forEach((document) => {
+					console.log(document.id);
+					console.log(document.data());
+				})
+			);
 	};
 
 	AddNewItem = (item: EconomyEvent) => {
@@ -76,15 +76,24 @@ export class BudjetCalculator extends React.Component<object, State> {
 		this.setState({ eventList: listWithNewItem });
 	};
 
-	doCreateNewEvent = ({ name, value, repeat, type }: IEventParams) => {
-		const newItem = new EconomyEvent(Math.random(), name, parseFloat(value), repeat, type);
-		this.AddNewItem(newItem);
+	doCreateNewEvent = (values: any) => {
+		const nom = validationSchema.cast(values);
+
+		// const newItem = new EconomyEvent(
+		// 	Math.random(),
+		// 	name,
+		// 	parseFloat(value),
+		// 	type,
+		// 	repeat
+		// );
+		// this.AddNewItem(newItem);
+		console.log(nom);
+
+		// database.collection('events').add({ name, value, repeat, type });
 	};
 
-	removeLastChild = () => {
-		const clone = [...this.state.eventList];
-		clone.pop();
-		this.setState({ eventList: clone });
+	doSetActiveItem = (id: number) => {
+		this.setState({ selectedEvent: id });
 	};
 
 	removeItemWithId = (id: number) => {
@@ -93,16 +102,15 @@ export class BudjetCalculator extends React.Component<object, State> {
 		this.setState({ eventList: list });
 	};
 
-	doSetActiveItem = (id: number) => {
-		this.setState({ selectedEvent: id });
-	};
-
 	reduceToAnnualBalance = (list: EconomyEvent[], m: number) => {
 		return list
 			.reduce(
 				(accumulator, current) =>
 					accumulator +
-					(current.repeat.annualRepeats * current.type.modifier * current.value) / m,
+					(Occurance[current.repeat].annualRepeats *
+						EventType[current.type].modifier *
+						current.value) /
+						m,
 				0
 			)
 			.toLocaleString('FI-fi', { style: 'currency', currency: 'EUR' });
@@ -115,6 +123,7 @@ export class BudjetCalculator extends React.Component<object, State> {
 		return (
 			<div>
 				<Heading headingText="Sign Up" className="underlined" />
+
 				<div style={{ border: 'green solid .2rem', padding: '1rem' }}>
 					{this.state.selectedEvent && (
 						<EventForm
@@ -125,62 +134,13 @@ export class BudjetCalculator extends React.Component<object, State> {
 						/>
 					)}
 				</div>
+
 				<Formik
-					initialValues={{ name: '', value: '', type: null, repeat: null }}
-					validationSchema={Yup.object().shape({
-						name: Yup.string()
-							.required()
-							.min(2)
-							.max(20),
-						value: Yup.string().required(),
-						type: Yup.object().required(),
-						repeat: Yup.object().required()
-					})}
-					onSubmit={({ name, value, type, repeat }) =>
-						this.doCreateNewEvent({ name, value, type: type.value, repeat: repeat.value })
-					}
-				>
-					{({
-						values,
-						errors,
-						dirty,
-						handleSubmit,
-						handleChange,
-						setFieldValue,
-						handleReset
-					}) => (
-						<div>
-							<div className="row-flex">
-								<TextInput
-									name="name"
-									onChange={handleChange}
-									error={errors.name && errors.name}
-									placeholder="Name"
-								/>
-								<TextInput
-									name="value"
-									onChange={handleChange}
-									error={errors.value && errors.value}
-									placeholder="Value"
-								/>
-								<SelectBase
-									onChange={(option: IOption) => setFieldValue('type', option)}
-									value={values.type}
-									placeholder={'Type'}
-									options={TypeOptions}
-								/>
-								<SelectBase
-									onChange={(option: IOption) => setFieldValue('repeat', option)}
-									value={values.repeat}
-									placeholder={'Occurrance'}
-									options={OccuranceOptions}
-								/>
-								<Button buttonText="reset" onClick={handleReset} />
-								<Button buttonText="submit" disabled={!dirty} onClick={handleSubmit} />
-							</div>
-						</div>
-					)}
-				</Formik>
+					initialValues={initialValues}
+					validationSchema={validationSchema}
+					onSubmit={(values) => this.doCreateNewEvent(values)}
+					render={FormikRender}
+				/>
 
 				<List
 					list={this.state.eventList}
@@ -188,82 +148,184 @@ export class BudjetCalculator extends React.Component<object, State> {
 					removeFromList={this.removeItemWithId}
 					setActive={this.doSetActiveItem}
 				/>
+
 				<Heading
 					headingText="Balance forecast"
 					icon={Icons.banned}
 					className="underlined margin-before"
 				/>
-				<div>
-					<span>Annual total: </span>
-					<span>{annualBalance}</span>
-				</div>
-				<div>
-					<span>Monthly total: </span>
-					<span>{monthlyBalance}</span>
-				</div>
+				<Toggleable>
+					{({ show, toggle }) => (
+						<>
+							<button onClick={toggle}>näytä lisää</button>
+							<SlideDown className={'my-dropdown-slidedown'}>
+								{show && (
+									<div>
+										<div>
+											<span>Annual total: </span>
+											<span>{annualBalance}</span>
+										</div>
+										<div>
+											<span>Monthly total: </span>
+											<span>{monthlyBalance}</span>
+										</div>
+									</div>
+								)}
+							</SlideDown>
+						</>
+					)}
+				</Toggleable>
 			</div>
 		);
 	}
 }
 
-const TypeOptions = Object.keys(EventType).map((key) => ({
-	label: EventType[key].label,
-	value: EventType[key]
-}));
+const initialValues: IEventParams = {
+	name: '',
+	value: '',
+	type: EventTypeConstant.Expense,
+	repeat: OccurranceConstant.Monthly
+};
 
-const OccuranceOptions = Object.keys(Occurance).map((key) => ({
-	label: Occurance[key].label,
-	value: Occurance[key]
-}));
+const validationSchema = Yup.object().shape({
+	name: Yup.string()
+		.required()
+		.min(2),
+	value: Yup.string()
+		.matches(/^\d{0,6}(?:[.,]\d{0,3})?$/)
+		.required()
+		.transform((value) => value.replace(',', '.')),
+	type: Yup.string().required(),
+	repeat: Yup.string().required()
+});
+
+const FormikRender = ({
+	values,
+	handleSubmit,
+	setFieldValue,
+	isValid,
+	handleReset
+}: FormikProps<typeof initialValues>) => (
+	<div>
+		<div className="row-flex">
+			<Field name="name" placeholder="Name" component={FormikInput} />
+			<Field name="value" placeholder="value" component={FormikInput} />
+			<Select
+				onChange={(option: { label: string; value: EventTypeAbstract }) =>
+					setFieldValue('type', option.value)
+				}
+				defaultValue={TypeOptions.find(
+					(type) => values.type && type.value === values.type
+				)}
+				placeholder={'Type'}
+				options={TypeOptions}
+			/>
+			<Select
+				onChange={(option: { label: string; value: OccurranceAbstract }) =>
+					setFieldValue('repeat', option.value)
+				}
+				defaultValue={OccuranceOptions.find(
+					(item) => values.repeat && item.value === values.repeat
+				)}
+				placeholder={'Occurrance'}
+				options={OccuranceOptions}
+			/>
+		</div>
+		<div className="row-flex">
+			<Button buttonText="reset" onClick={handleReset} />
+			<Button buttonText="submit" disabled={!isValid} onClick={handleSubmit} />
+		</div>
+	</div>
+);
+
+const FormikInput = ({
+	field,
+	form: { touched, errors },
+	placeholder,
+	...props
+}: FieldProps & { placeholder: string }) => (
+	<TextInput
+		error={touched[field.name] && errors[field.name]}
+		placeholder={placeholder}
+		{...field}
+		{...props}
+	/>
+);
+
+const TypeOptions = [
+	{
+		label: EventType[EventTypeConstant.Expense].label,
+		value: EventTypeConstant.Expense
+	},
+	{
+		label: EventType[EventTypeConstant.Income].label,
+		value: EventTypeConstant.Income
+	}
+];
+
+const OccuranceOptions = [
+	{
+		label: Occurance[OccurranceConstant.Monthly].label,
+		value: OccurranceConstant.Monthly
+	},
+	{
+		label: Occurance[OccurranceConstant.Annual].label,
+		value: OccurranceConstant.Annual
+	},
+	{
+		label: Occurance[OccurranceConstant.Quarterly].label,
+		value: OccurranceConstant.Quarterly
+	}
+];
 
 const EventList: EconomyEvent[] = [
 	{
 		name: 'Vuokra',
 		id: 1,
 		value: 500.99,
-		type: EventType.expense,
-		repeat: Occurance.monthly
+		type: EventTypeConstant.Expense,
+		repeat: OccurranceConstant.Monthly
 	},
 	{
 		name: 'Nettimaksu',
 		id: 2,
 		value: 39.99,
-		type: EventType.expense,
-		repeat: Occurance.monthly
+		type: EventTypeConstant.Expense,
+		repeat: OccurranceConstant.Annual
 	},
 	{
 		name: 'Puhelinliittymä - kuukausittainen',
 		id: 3,
 		value: 34.99,
-		type: EventType.expense,
-		repeat: Occurance.monthly
+		type: EventTypeConstant.Expense,
+		repeat: OccurranceConstant.Monthly
 	},
 	{
 		name: 'Muu tulo',
 		id: 4,
 		value: 12,
-		type: EventType.expense,
-		repeat: Occurance.quarterly
+		type: EventTypeConstant.Expense,
+		repeat: OccurranceConstant.Quarterly
 	},
 	{
 		name: 'Palkka',
 		id: 5,
 		value: 120,
-		type: EventType.income,
-		repeat: Occurance.annual
+		type: EventTypeConstant.Income,
+		repeat: OccurranceConstant.Monthly
 	},
 	{
 		name: 'Metsämaat',
 		id: 6,
 		value: 12,
-		type: EventType.income,
-		repeat: Occurance.annual
+		type: EventTypeConstant.Income,
+		repeat: OccurranceConstant.Monthly
 	},
 	{
 		name: 'Palkka',
 		id: 7,
 		value: 120,
-		type: EventType.expense,
-		repeat: Occurance.annual
+		type: EventTypeConstant.Expense,
+		repeat: OccurranceConstant.Monthly
 	}
 ];

@@ -1,4 +1,8 @@
+const Notify = (message: string) => {
+	console.log(message);
+};
 
+export { Notify };
 // import * as toastr from 'toastr';
 // import settings from 'Utils/Settings';
 
@@ -8,7 +12,6 @@
 // // const keys = require('./keys.json');
 // // console.log(keys);
 // // console.log(keys.USER_TIP_POSITION);
-
 
 // export default class Notify {
 
@@ -29,7 +32,7 @@
 //       showMethod: "fadeIn",
 //       hideMethod: "fadeOut"
 //    };
-   
+
 //    static getPosition(){
 
 //       const position = settings.getNotificationPosition();
@@ -68,4 +71,3 @@
 // 		toastr.warning(msg, title);
 // 	}
 // }
-

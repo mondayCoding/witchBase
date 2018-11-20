@@ -6,7 +6,12 @@ import { OptionsType } from 'react-select/lib/types';
 export const Select: React.SFC<IProps> = ({ id, label, ...rest }) => {
 	return (
 		<Field label={label} id={id}>
-			<SelectBase id={id} {...rest} />
+			<SelectBase
+				classNamePrefix="react-select"
+				className="react-select-container"
+				id={id}
+				{...rest}
+			/>
 		</Field>
 	);
 };

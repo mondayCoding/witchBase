@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Heading, TextInputField, Button, TextInput } from 'Common/Index';
 import { Formik, Field, FieldProps, FormikProps } from 'formik';
-import { Select } from 'Common/Select/Select';
 import * as Yup from 'yup';
+import * as routes from 'Constants/Routes';
 
 export class SignIn extends React.Component<object> {
 	handleSubmit = (values: any) => {
 		console.log(values);
+		if (confirm('really?')) {
+		}
 	};
 
 	render() {
@@ -27,8 +29,7 @@ export class SignIn extends React.Component<object> {
 
 const initialValues = {
 	password: '',
-	email: '',
-	required: ['password', 'email']
+	email: ''
 };
 
 const validationSchema = Yup.object().shape({
@@ -40,8 +41,6 @@ const validationSchema = Yup.object().shape({
 		.required()
 });
 
-// TODO
-// TESTAA TOIMIIKO TÄMÄ
 const Form = ({ handleReset, handleSubmit, isValid }: FormikProps<any>) => (
 	<>
 		<Field name="email" component={FormikField} label={'Email'} placeholder={'Email'} />
@@ -57,8 +56,6 @@ const Form = ({ handleReset, handleSubmit, isValid }: FormikProps<any>) => (
 	</>
 );
 
-// field = { name, value, onChange, onBlur }
-// form... also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
 const FormikField = ({
 	field,
 	form: { touched, errors },
@@ -73,25 +70,3 @@ const FormikField = ({
 		title={touched[field.name] && errors[field.name]}
 	/>
 );
-
-// const Custom = ({
-// 	field, // { name, value, onChange, onBlur }
-// 	form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-// 	label,
-// 	...props
-// }: any) => {
-// 	console.log(label);
-
-// 	return (
-// 		<TextInput
-// 			label={label}
-// 			id={`field_id_${name}_TID`}
-// 			{...field}
-// 			{...props}
-// 			onChange={field.onChange}
-// 			value={field.value}
-// 			error={touched[field.name] && errors[field.name]}
-// 			title={touched[field.name] && errors[field.name]}
-// 		/>
-// 	);
-// };

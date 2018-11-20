@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Heading, TextInputField, TextInputMaterial } from 'Common/Index';
 import { EconomyEvent } from './EconomyCalc';
-import { IOccurrance, IEventType } from 'Constants/Economy';
+import { EventTypeAbstract, EventTypeConstant, EventType } from 'Constants/EconomyType';
+import { OccurranceAbstract, OccurranceConstant, Occurance } from 'Constants/EconomyOccurrance';
 import ReactTable, { ReactTableDefaults, Accessor, PivotingProps } from 'react-table';
 import 'react-table/react-table.css';
 import { CSSTransition, Transition, TransitionGroup } from 'react-transition-group';
@@ -43,16 +44,20 @@ export class List extends React.Component<IProps> {
 							id: 'EventType',
 							Header: 'Event Type',
 							accessor: (props: any) => props.type,
-							Cell: (props: { value: IEventType }) => (
-								<span className={props.value.class_basic}>{props.value.label}</span>
+							Cell: (props: { value: EventTypeConstant }) => (
+								<span className={EventType[props.value].class_basic}>
+									{EventType[props.value].label}
+								</span>
 							)
 						},
 						{
 							id: 'Repeat',
 							Header: 'Occurs',
-							accessor: (props: EconomyEvent) => props.repeat,
-							Cell: (props: { value: IOccurrance }) => (
-								<span className={props.value.class_basic}>{props.value.label}</span>
+							accessor: (props: any) => props.repeat,
+							Cell: (props: { value: OccurranceConstant }) => (
+								<span className={Occurance[props.value].class_basic}>
+									{Occurance[props.value].label}
+								</span>
 							)
 						}
 					]}

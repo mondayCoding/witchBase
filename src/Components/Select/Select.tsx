@@ -2,7 +2,9 @@ import * as React from 'react';
 import ReactSelect from 'react-select';
 import { Props as reactSelectProps } from 'react-select/lib/Select';
 
-export const Select: React.SFC<IProps> = (props) => <ReactSelect {...props} />;
+export const Select: React.SFC<IProps> = (props) => (
+	<ReactSelect classNamePrefix="react-select" className="react-select" {...props} />
+);
 
 interface IOptionType {
 	label: string;

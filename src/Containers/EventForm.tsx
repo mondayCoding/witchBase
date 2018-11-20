@@ -1,21 +1,15 @@
 import * as React from 'react';
-import { Heading, TextInputField, TextInputMaterial, TextInput, Button } from 'Common/Index';
-import { IOccurrance, IEventType, EventType, Occurance } from 'Constants/Economy';
-import { Formik, FormikValues } from 'formik';
+import { TextInput, Button } from 'Common/Index';
+import { EventType } from 'Constants/EconomyType';
+import { Occurance } from 'Constants/EconomyOccurrance';
+import { Formik, FormikProps, FieldProps, Field } from 'formik';
 import { EconomyEvent } from './EconomyCalc';
 import * as Yup from 'yup';
-import SelectBase from 'react-select';
+import { Select } from 'Common/Select/Select';
 
 interface IOption {
 	label: string;
 	value: any;
-}
-
-interface ISubmitParams {
-	name: string;
-	value: string;
-	repeat: IOccurrance;
-	type: IEventType;
 }
 
 interface IProps {
@@ -37,65 +31,70 @@ export const EventForm: React.SFC<IProps> = (props) => {
 				type: props.event.type,
 				repeat: props.event.repeat
 			}}
-			validationSchema={Yup.object().shape({
-				name: Yup.string()
-					.required()
-					.min(2)
-					.max(20),
-				value: Yup.string()
-					.matches(/^\d{0,6}(?:[.,]\d{0,3})?$/)
-					.required(),
-				type: Yup.object().required(),
-				repeat: Yup.object().required()
-			})}
-			onSubmit={(values) =>
-				handleEventEdit({
-					name: values.name,
-					value: parseFloat(values.value),
-					type: values.type,
-					repeat: values.repeat
-				})
+			validationSchema={validationSchema}
+			onSubmit={
+				(values) => console.log(values)
+
+				// handleEventEdit({
+				// 	name: values.name,
+				// 	value: parseFloat(values.value),
+				// 	type: values.type,
+				// 	repeat: values.repeat
+				// })
 			}
-		>
-			{({ values, errors, dirty, handleSubmit, handleChange, setFieldValue, handleReset }) => (
-				<div>
-					<div className="row-flex">
-						<TextInput
-							name="name"
-							value={values.name}
-							onChange={handleChange}
-							error={errors.name && errors.name}
-							placeholder="Name"
-						/>
-					</div>
-					<div className="row-flex">
-						<TextInput
-							name="value"
-							value={values.value}
-							onChange={handleChange}
-							error={errors.value && errors.value}
-							placeholder="Value"
-						/>
-					</div>
-					<SelectBase
-						onChange={(option: IOption) => setFieldValue('type', option.value)}
-						value={TypeOptions.find((option) => option.value.label === values.type.label)}
-						placeholder={'Type'}
-						options={TypeOptions}
-					/>
-					<SelectBase
-						onChange={(option: IOption) => setFieldValue('repeat', option.value)}
-						value={OccuranceOptions.find((item) => item.value.label === values.repeat.label)}
-						placeholder={'Occurrance'}
-						options={OccuranceOptions}
-					/>
-					<Button buttonText="reset" onClick={handleReset} />
-					<Button buttonText="submit" disabled={!dirty} onClick={handleSubmit} />
-				</div>
-			)}
-		</Formik>
+			render={formikForm}
+		/>
 	);
 };
+
+const formikForm = ({
+	values,
+	handleSubmit,
+	setFieldValue,
+	handleReset,
+	isValid
+}: FormikProps<any>) => (
+	<div>
+		<Field name="name" placeholder="Name" component={FormikInput} />
+		<Field name="value" placeholder="Value" component={FormikInput} />
+		<Select
+			onChange={(option: IOption) => setFieldValue('type', option.value)}
+			value={TypeOptions.find((option) => option.value.label === values.type.label)}
+			placeholder={'Type'}
+			options={TypeOptions}
+		/>
+		<Select
+			onChange={(option: IOption) => setFieldValue('repeat', option.value)}
+			value={OccuranceOptions.find((item) => item.value.label === values.repeat.label)}
+			placeholder={'Occurrance'}
+			options={OccuranceOptions}
+		/>
+		<Button buttonText="reset" onClick={handleReset} />
+		<Button buttonText="submit" disabled={!isValid} onClick={handleSubmit} />
+	</div>
+);
+
+const FormikInput = ({
+	field,
+	form: { touched, errors },
+	placeholder,
+	...props
+}: FieldProps & { placeholder: string }) => (
+	<div className="row-flex">
+		<TextInput error={errors[field.name]} placeholder={placeholder} {...field} {...props} />
+	</div>
+);
+
+const validationSchema = Yup.object().shape({
+	name: Yup.string()
+		.required()
+		.min(2),
+	value: Yup.string()
+		.matches(/^\d{0,6}(?:[.,]\d{0,3})?$/)
+		.required(),
+	repeat: Yup.object(),
+	type: Yup.object()
+});
 
 const TypeOptions = Object.keys(EventType).map((key) => ({
 	label: EventType[key].label,

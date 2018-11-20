@@ -4,5 +4,5 @@
 	"singleQuote": true,
 	"useTabs": true,
 	"arrowParens": "always",
-	"printWidth": 100
+	"printWidth": 90
 }

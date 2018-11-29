@@ -99,7 +99,7 @@ export class BudjetCalculator extends React.Component<object, State> {
 	removeItemWithId = (id: number) => {
 		const clone = [...this.state.eventList];
 		const list = clone.filter((item) => item.id !== id);
-		this.setState({ eventList: list });
+      this.setState({ eventList: list });
 	};
 
 	reduceToAnnualBalance = (list: EconomyEvent[], m: number) => {

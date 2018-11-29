@@ -1,13 +1,18 @@
 import * as React from 'react';
-import { Heading, TextInputField, TextInputMaterial } from 'Common/Index';
+import { Heading, TextInputField, TextInputMaterial, Button, Icons } from 'Common/Index';
 import { EconomyEvent } from './EconomyCalc';
 import { EventTypeAbstract, EventTypeConstant, EventType } from 'Constants/EconomyType';
-import { OccurranceAbstract, OccurranceConstant, Occurance } from 'Constants/EconomyOccurrance';
+import {
+	OccurranceAbstract,
+	OccurranceConstant,
+	Occurance
+} from 'Constants/EconomyOccurrance';
 import ReactTable, { ReactTableDefaults, Accessor, PivotingProps } from 'react-table';
 import 'react-table/react-table.css';
 import { CSSTransition, Transition, TransitionGroup } from 'react-transition-group';
 import { Spring, Transition as Transition2, config, Trail } from 'react-spring';
 import { ActionLink } from 'Common/Links/ActionLink';
+import { CloseButton } from 'Common/Utility/CloseButton';
 
 interface IProps {
 	list: EconomyEvent[];
@@ -20,7 +25,11 @@ export class List extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				<Heading headingText={this.props.headingText} type="h3" className="underlined" />
+				<Heading
+					headingText={this.props.headingText}
+					type="h3"
+					className="underlined"
+				/>
 
 				<ReactTable
 					data={this.props.list}
@@ -59,6 +68,15 @@ export class List extends React.Component<IProps> {
 									{Occurance[props.value].label}
 								</span>
 							)
+						},
+						{
+							Header: 'remove',
+							accessor: 'id',
+							Cell: (props: any) => (
+								<CloseButton
+									onClick={() => this.props.removeFromList(props.value)}
+								/>
+							)
 						}
 					]}
 					minRows={this.props.list.length}
@@ -85,7 +103,9 @@ const TransitionGroupTBody: React.SFC<any> = (props) => (
 	>
 		{(props4) =>
 			props4 &&
-			((props2: any) => <ReactTableDefaults.TbodyComponent style={props2} {...props} />)
+			((props2: any) => (
+				<ReactTableDefaults.TbodyComponent style={props2} {...props} />
+			))
 		}
 	</Transition2>
 );
@@ -107,7 +127,9 @@ const CSSTransitionTR: React.SFC<any> = (props) => (
 	>
 		{(props4) =>
 			props4 &&
-			((props2: any) => <ReactTableDefaults.TrGroupComponent style={props2} {...props} />)
+			((props2: any) => (
+				<ReactTableDefaults.TrGroupComponent style={props2} {...props} />
+			))
 		}
 	</Transition2>
 );

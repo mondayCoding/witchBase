@@ -5,4 +5,6 @@ import './CloseButton.scss';
 // Close button component
 //*****************************************************************************************************************
 
-export const CloseButton: React.SFC = (props) => <div className="close--button" />;
+export const CloseButton: React.SFC<{ onClick: any }> = (props) => (
+	<div className="close--button" {...props} />
+);
